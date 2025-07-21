@@ -141,7 +141,6 @@
                             Donate via PayPal
                         </a>
                     </div>
-                    
                     <div class="donation-card gcash-card">
                         <i class="fas fa-mobile-alt"></i>
                         <h3>GCash</h3>
@@ -150,6 +149,9 @@
                             <i class="fas fa-qrcode"></i>
                             Show GCash QR
                         </button>
+                        <div id="gcashQRContainer" style="display:none; margin-top:20px; text-align:center;">
+                            <img src="images/gcash-qr-insta.png" alt="GCash QR Code" style="max-width:220px; border-radius:12px; box-shadow:0 2px 12px #0002;">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -343,5 +345,24 @@
 
     <script src="secure-script.js"></script>
     <script src="script.js"></script>
+    <script>
+    // Show GCash QR code on button click
+    document.addEventListener('DOMContentLoaded', function() {
+        var gcashBtn = document.getElementById('gcashBtn');
+        var gcashQR = document.getElementById('gcashQRContainer');
+        if (gcashBtn && gcashQR) {
+            gcashBtn.addEventListener('click', function() {
+                gcashQR.style.display = gcashQR.style.display === 'none' ? 'block' : 'none';
+            });
+        }
+        var paypalBtn = document.getElementById('paypalBtn');
+        if (paypalBtn) {
+            paypalBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.open('https://www.paypal.com/paypalme/fatoow?country.x=PH&locale.x=en_US', '_blank');
+            });
+        }
+    });
+    </script>
 </body>
 </html>

@@ -657,12 +657,12 @@ body {
 
 /* Specific donation card colors */
 .paypal-card i { color: #0070ba; }
-.kofi-card i { color: #ff8c00; }
+.kofi-card i { color: #ff6b35; }
 .gcash-card i { color: #007bff; }
 
 /* Ko-fi card background */
 .kofi-card {
-    background: linear-gradient(135deg, #ff8c00 0%, #e67300 100%);
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
 }
 
 /* GCash card background */

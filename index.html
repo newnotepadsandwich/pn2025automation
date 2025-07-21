@@ -136,10 +136,10 @@
                         <i class="fab fa-paypal"></i>
                         <h3>PayPal</h3>
                         <p>Quick and secure international donations</p>
-                        <a href="#" class="btn btn-primary" id="paypalBtn">
+                        <button class="btn btn-primary" id="paypalBtn">
                             <i class="fab fa-paypal"></i>
                             Donate via PayPal
-                        </a>
+                        </button>
                     </div>
                     <div class="donation-card gcash-card">
                         <i class="fas fa-mobile-alt"></i>
@@ -346,21 +346,42 @@
     <script src="secure-script.js"></script>
     <script src="script.js"></script>
     <script>
-    // Show GCash QR code on button click
+    // Show GCash QR code on button click and handle PayPal
     document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM loaded, initializing donation buttons...');
+        
+        // GCash functionality
         var gcashBtn = document.getElementById('gcashBtn');
         var gcashQR = document.getElementById('gcashQRContainer');
+        
         if (gcashBtn && gcashQR) {
-            gcashBtn.addEventListener('click', function() {
-                gcashQR.style.display = gcashQR.style.display === 'none' ? 'block' : 'none';
+            console.log('GCash elements found');
+            gcashBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('GCash button clicked');
+                if (gcashQR.style.display === 'none' || !gcashQR.style.display) {
+                    gcashQR.style.display = 'block';
+                    console.log('GCash QR shown');
+                } else {
+                    gcashQR.style.display = 'none';
+                    console.log('GCash QR hidden');
+                }
             });
+        } else {
+            console.log('GCash elements not found');
         }
+        
+        // PayPal functionality
         var paypalBtn = document.getElementById('paypalBtn');
         if (paypalBtn) {
+            console.log('PayPal button found');
             paypalBtn.addEventListener('click', function(e) {
                 e.preventDefault();
+                console.log('PayPal button clicked');
                 window.open('https://www.paypal.com/paypalme/fatoow?country.x=PH&locale.x=en_US', '_blank');
             });
+        } else {
+            console.log('PayPal button not found');
         }
     });
     </script>

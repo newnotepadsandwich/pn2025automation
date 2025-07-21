@@ -98,10 +98,6 @@ function createScriptCard(script) {
                 <i class="fas fa-download"></i>
                 Install
             </a>
-            <a href="${script.githubUrl}" class="btn btn-ghost" onclick="event.stopPropagation();" target="_blank">
-                <i class="fab fa-github"></i>
-                Source
-            </a>
         </div>
     `;
     
@@ -236,10 +232,6 @@ function openScriptModal(script) {
                     <a href="${script.downloadUrl}" class="btn btn-primary" onclick="trackDownload('${script.title}');">
                         <i class="fas fa-download"></i>
                         Install Script
-                    </a>
-                    <a href="${script.githubUrl}" class="btn btn-secondary" target="_blank">
-                        <i class="fab fa-github"></i>
-                        View Source
                     </a>
                 </div>
             </div>
@@ -535,10 +527,6 @@ function showLoadingCards() {
                 <div class="btn btn-primary">
                     <i class="fas fa-spinner fa-spin"></i>
                     Loading...
-                </div>
-                <div class="btn btn-ghost">
-                    <i class="fab fa-github"></i>
-                    Source
                 </div>
             </div>
         </div>

@@ -10,8 +10,8 @@ body {
     line-height: 1.6;
     color: #333;
     background: 
-        linear-gradient(rgba(0, 0, 0, 0.7), rgba(15, 15, 15, 0.8)),
-        url('./images/pockie-ninja-background.jpg');
+        linear-gradient(rgba(0, 0, 0, 0.4), rgba(15, 15, 15, 0.5)),
+        url('./images/anime-fantasy-bg.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -112,7 +112,7 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+    background: transparent;
     overflow: hidden;
 }
 
@@ -280,7 +280,7 @@ body {
 
 /* Stats Section */
 .stats {
-    background: #1a1a1a;
+    background: rgba(26, 26, 26, 0.8);
     padding: 4rem 0;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -319,7 +319,7 @@ body {
 /* Scripts Section */
 .scripts {
     padding: 6rem 0;
-    background: #0f0f0f;
+    background: rgba(15, 15, 15, 0.8);
 }
 
 .section-header {
@@ -519,7 +519,7 @@ body {
 /* About Section */
 .about {
     padding: 6rem 0;
-    background: #1a1a1a;
+    background: rgba(26, 26, 26, 0.8);
 }
 
 .about-content {
@@ -602,7 +602,7 @@ body {
 /* Donation Section */
 .donate {
     padding: 6rem 0;
-    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+    background: linear-gradient(135deg, rgba(15, 15, 15, 0.8) 0%, rgba(26, 26, 26, 0.8) 100%);
 }
 
 .donate-content {
@@ -658,7 +658,7 @@ body {
 /* Specific donation card colors */
 .paypal-card i { color: #0070ba; }
 .kofi-card i { color: #ff6b35; }
-.gcash-card i { color: #007bff; }
+.gcash-card i { color: #fff; }
 
 /* Ko-fi card background */
 .kofi-card {
@@ -666,8 +666,8 @@ body {
 }
 
 /* GCash card background */
-.gcash-card {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+.donation-card.gcash-card {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%) !important;
 }
 
 .donation-card h3 {
@@ -684,7 +684,7 @@ body {
 
 /* Footer */
 .footer {
-    background: #0a0a0a;
+    background: rgba(10, 10, 10, 0.9);
     padding: 4rem 0 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -933,7 +933,7 @@ html {
 /* Installation Guide Section */
 .installation-guide {
     padding: 100px 0;
-    background: #111;
+    background: rgba(17, 17, 17, 0.8);
     position: relative;
 }
 

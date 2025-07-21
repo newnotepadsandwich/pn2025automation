@@ -77,16 +77,16 @@
                     </div>
                     <div class="code-content">
                         <div class="code-line"><span class="comment">// ==UserScript==</span></div>
-                        <div class="code-line"><span class="comment">// @name Auto Battle - TB v5.0</span></div>
-                        <div class="code-line"><span class="comment">// @version 5.0</span></div>
+                        <div class="code-line"><span class="comment">// @name Pockie Ninja Auto Battle V3.8</span></div>
+                        <div class="code-line"><span class="comment">// @version 3.8</span></div>
                         <div class="code-line"><span class="comment">// ==/UserScript==</span></div>
                         <div class="code-line"></div>
-                        <div class="code-line"><span class="keyword">let</span> <span class="variable">autoBattleTB</span> = <span class="keyword">false</span>;</div>
-                        <div class="code-line"><span class="keyword">let</span> <span class="variable">learningMode</span> = <span class="keyword">false</span>;</div>
-                        <div class="code-line"><span class="keyword">function</span> <span class="function">startAutoBattleTB</span>() {</div>
-                        <div class="code-line">  <span class="function">updateStatus</span>(<span class="string">'🚀 Started Auto TB'</span>);</div>
-                        <div class="code-line">  <span class="function">clickNextBeast</span>();</div>
-                        <div class="code-line">}</div>
+                        <div class="code-line"><span class="keyword">let</span> <span class="variable">autoMode</span> = <span class="keyword">true</span>;</div>
+                        <div class="code-line"><span class="keyword">let</span> <span class="variable">healthThreshold</span> = <span class="string">30</span>;</div>
+                        <div class="code-line"><span class="keyword">function</span> <span class="function">smartHealthBattle</span>() {</div>
+                        <div class="code-line">  <span class="keyword">if</span> (<span class="function">getHealth</span>() < <span class="variable">healthThreshold</span>) {</div>
+                        <div class="code-line">    <span class="function">useHealthPotion</span>();</div>
+                        <div class="code-line">  }</div>
                     </div>
                 </div>
             </div>

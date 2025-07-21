@@ -143,6 +143,17 @@
                         </button>
                     </div>
                     
+                    <!-- Ko-fi Donation -->
+                    <div class="donation-card kofi-card">
+                        <i class="fas fa-coffee"></i>
+                        <h3>Ko-fi</h3>
+                        <p>Buy me a coffee to support development</p>
+                        <button class="btn btn-secondary" id="kofiBtn">
+                            <i class="fas fa-coffee"></i>
+                            Buy Me a Coffee
+                        </button>
+                    </div>
+                    
                     <!-- GCash Donation -->
                     <div class="donation-card gcash-card">
                         <i class="fas fa-mobile-alt"></i>
@@ -355,10 +366,12 @@
         const allCards = document.querySelectorAll('.donation-card');
         const gcashCards = document.querySelectorAll('.gcash-card');
         const paypalCards = document.querySelectorAll('.paypal-card');
+        const kofiCards = document.querySelectorAll('.kofi-card');
         
         console.log('Total donation cards:', allCards.length);
         console.log('GCash cards:', gcashCards.length);
         console.log('PayPal cards:', paypalCards.length);
+        console.log('Ko-fi cards:', kofiCards.length);
         
         // Show GCash QR code on button click
         var gcashBtn = document.getElementById('gcashBtn');
@@ -375,6 +388,7 @@
             });
         }
         
+        // PayPal functionality
         var paypalBtn = document.getElementById('paypalBtn');
         console.log('PayPal button found:', !!paypalBtn);
         
@@ -383,6 +397,18 @@
                 console.log('PayPal button clicked - opening PayPal');
                 e.preventDefault();
                 window.open('https://www.paypal.com/paypalme/fatoow?country.x=PH&locale.x=en_US', '_blank');
+            });
+        }
+        
+        // Ko-fi functionality
+        var kofiBtn = document.getElementById('kofiBtn');
+        console.log('Ko-fi button found:', !!kofiBtn);
+        
+        if (kofiBtn) {
+            kofiBtn.addEventListener('click', function(e) {
+                console.log('Ko-fi button clicked - opening Ko-fi');
+                e.preventDefault();
+                window.open('https://ko-fi.com/fatoow', '_blank');
             });
         }
         

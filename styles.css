@@ -655,9 +655,20 @@ body {
     margin-bottom: 1.5rem;
 }
 
-.donation-card:nth-child(1) i { color: #0070ba; }
-.donation-card:nth-child(2) i { color: #ff5f5f; }
-.donation-card:nth-child(3) i { color: #ff424d; }
+/* Specific donation card colors */
+.paypal-card i { color: #0070ba; }
+.kofi-card i { color: #ff5f5f; }
+.gcash-card i { color: #007bff; }
+
+/* Ko-fi card background */
+.kofi-card {
+    background: linear-gradient(135deg, #ff5f5f 0%, #ff424d 100%);
+}
+
+/* GCash card background */
+.gcash-card {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+}
 
 .donation-card h3 {
     font-size: 1.5rem;

@@ -94,10 +94,10 @@ function createScriptCard(script) {
             </ul>
         </div>
         <div class="script-actions">
-            <a href="${script.downloadUrl}" class="btn btn-primary" onclick="event.stopPropagation(); trackDownload('${script.title}');">
+            <button class="btn btn-primary" onclick="event.stopPropagation(); downloadScript('${script.downloadUrl}', '${script.title}');">
                 <i class="fas fa-download"></i>
                 Install
-            </a>
+            </button>
         </div>
     `;
     
@@ -229,10 +229,10 @@ function openScriptModal(script) {
                 </div>
                 
                 <div class="script-actions">
-                    <a href="${script.downloadUrl}" class="btn btn-primary" onclick="trackDownload('${script.title}');">
+                    <button class="btn btn-primary" onclick="downloadScript('${script.downloadUrl}', '${script.title}');">
                         <i class="fas fa-download"></i>
                         Install Script
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -531,4 +531,33 @@ function showLoadingCards() {
             </div>
         </div>
     `).join('');
+}
+
+// Download script function
+function downloadScript(scriptUrl, scriptTitle) {
+    // Track the download
+    trackDownload(scriptTitle);
+    
+    // Create a temporary link element for download
+    const link = document.createElement('a');
+    link.href = scriptUrl;
+    link.download = scriptUrl.split('/').pop(); // Get filename from URL
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    
+    // Add to DOM temporarily and click
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Show install instructions
+    setTimeout(() => {
+        alert(`📥 Script Download Started!\n\n` +
+              `🔧 Next Steps:\n` +
+              `1. The ${scriptTitle} file should download automatically\n` +
+              `2. Open the downloaded .user.js file\n` +
+              `3. Tampermonkey will prompt you to install it\n` +
+              `4. Click "Install" in the Tampermonkey dialog\n\n` +
+              `💡 If it didn't download automatically, check your Downloads folder or try right-clicking the Install button and selecting "Save link as..."`);
+    }, 500);
 }

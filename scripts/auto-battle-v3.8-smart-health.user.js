@@ -12,6 +12,18 @@
 // @homepageURL  https://newnotepadsandwich.github.io/info.hack/
 // ==/UserScript==
 
+/*
+ * ❤️ SUPPORT THE DEVELOPER ❤️
+ * 
+ * 🌟 This script is completely FREE! If you find it helpful, please consider supporting:
+ * 
+ * ☕ Buy me a coffee: https://ko-fi.com/fatoow
+ * 🌐 Visit our website: https://newnotepadsandwich.github.io/info.hack/
+ * 
+ * 💝 Your support helps us continue creating amazing tools for the gaming community!
+ * 🚀 More scripts and updates coming soon!
+ */
+
 (function () {
     'use strict';
 

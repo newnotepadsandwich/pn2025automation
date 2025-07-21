@@ -6,13 +6,25 @@
 // @author       info.hack
 // @match        https://pockieninja.online
 // @grant        none
-//license      MIT
+// @license      MIT
 // @icon         https://pockieninja.online/favicon.ico
 // @updateURL    https://newnotepadsandwich.github.io/info.hack/scripts/pockie-tb-auto-battle-v5.user.js
 // @downloadURL  https://newnotepadsandwich.github.io/info.hack/scripts/pockie-tb-auto-battle-v5.user.js
 // @supportURL   https://newnotepadsandwich.github.io/info.hack/#donate
 // @homepageURL  https://newnotepadsandwich.github.io/info.hack/
 // ==/UserScript==
+
+/*
+ * ❤️ SUPPORT THE DEVELOPER ❤️
+ * 
+ * 🌟 This script is completely FREE! If you find it helpful, please consider supporting:
+ * 
+ * ☕ Buy me a coffee: https://ko-fi.com/fatoow
+ * 🌐 Visit our website: https://newnotepadsandwich.github.io/info.hack/
+ * 
+ * 💝 Your support helps us continue creating amazing tools for the gaming community!
+ * 🚀 More scripts and updates coming soon!
+ */
 
 (function () {
     ////// [State and Saved Data Initialization]

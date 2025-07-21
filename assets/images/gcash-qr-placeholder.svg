@@ -1,0 +1,25 @@
+<!-- This is a placeholder for your GCash QR code -->
+<!-- Replace this entire file with your actual QR code PNG image -->
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#ffffff"/>
+  <rect x="10" y="10" width="20" height="20" fill="#000000"/>
+  <rect x="30" y="10" width="20" height="20" fill="#000000"/>
+  <rect x="50" y="10" width="20" height="20" fill="#000000"/>
+  <rect x="10" y="30" width="20" height="20" fill="#000000"/>
+  <rect x="50" y="30" width="20" height="20" fill="#000000"/>
+  <rect x="10" y="50" width="20" height="20" fill="#000000"/>
+  <rect x="30" y="50" width="20" height="20" fill="#000000"/>
+  <rect x="50" y="50" width="20" height="20" fill="#000000"/>
+  
+  <!-- GCash Logo Area -->
+  <rect x="85" y="85" width="30" height="30" fill="#007dbb"/>
+  <text x="100" y="105" text-anchor="middle" fill="#ffffff" font-family="Arial" font-size="8">GCash</text>
+  
+  <!-- Sample QR Pattern -->
+  <rect x="130" y="130" width="60" height="10" fill="#000000"/>
+  <rect x="130" y="150" width="60" height="10" fill="#000000"/>
+  <rect x="130" y="170" width="60" height="10" fill="#000000"/>
+  
+  <text x="100" y="185" text-anchor="middle" fill="#666666" font-family="Arial" font-size="12">Your GCash QR Code</text>
+  <text x="100" y="195" text-anchor="middle" fill="#666666" font-family="Arial" font-size="8">Replace with actual QR image</text>
+</svg>

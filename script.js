@@ -1,0 +1,591 @@
+// Scripts data is now loaded from secure-script.js
+// This file now only contains the UI and interaction functions
+
+// DOM Elements
+const hamburger = document.querySelector('.hamburger');
+const navMenu = document.querySelector('.nav-menu');
+const scriptsGrid = document.getElementById('scriptsGrid');
+const modal = document.getElementById('scriptModal');
+const modalBody = document.getElementById('modalBody');
+const closeModal = document.querySelector('.close');
+
+// Initialize the website
+document.addEventListener('DOMContentLoaded', function() {
+    initializeNavigation();
+    loadScripts();
+    initializeStats();
+    initializeModal();
+    initializeSmoothScroll();
+    initializeDonationButtons();
+});
+
+// Navigation functionality
+function initializeNavigation() {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+    });
+
+    // Add active class to navigation links based on scroll position
+    window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('section[id]');
+        const scrollPos = window.scrollY + 100;
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+
+            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                if (navLink) {
+                    navLink.classList.add('active');
+                }
+            }
+        });
+    });
+}
+
+// Load and display scripts
+function loadScripts() {
+    scriptsGrid.innerHTML = '';
+    
+    scriptsData.forEach(script => {
+        const scriptCard = createScriptCard(script);
+        scriptsGrid.appendChild(scriptCard);
+    });
+}
+
+// Create script card element
+function createScriptCard(script) {
+    const card = document.createElement('div');
+    card.className = 'script-card';
+    card.onclick = () => openScriptModal(script);
+    
+    card.innerHTML = `
+        <div class="script-header">
+            <div class="script-title">${script.title}</div>
+            <div class="script-version">${script.version}</div>
+        </div>
+        <div class="script-game">${script.game}</div>
+        <div class="script-description">${script.description}</div>
+        <div class="script-features">
+            <ul>
+                ${script.features.slice(0, 3).map(feature => `<li>${feature}</li>`).join('')}
+            </ul>
+        </div>
+        <div class="script-actions">
+            <a href="${script.downloadUrl}" class="btn btn-primary" onclick="event.stopPropagation(); trackDownload('${script.title}');">
+                <i class="fas fa-download"></i>
+                Install
+            </a>
+            <a href="${script.githubUrl}" class="btn btn-ghost" onclick="event.stopPropagation();" target="_blank">
+                <i class="fab fa-github"></i>
+                Source
+            </a>
+        </div>
+    `;
+    
+    return card;
+}
+
+// Generate video content for modal (handles single or multiple videos)
+function generateVideoContent(script) {
+    // Check if script has multiple videos
+    if (script.videoUrls && script.videoUrls.length > 0) {
+        if (script.videoUrls.length === 1) {
+            return `
+                <div class="video-container">
+                    <iframe 
+                        src="${script.videoUrls[0]}" 
+                        frameborder="0" 
+                        allowfullscreen
+                        width="100%" 
+                        height="315">
+                    </iframe>
+                </div>
+            `;
+        } else {
+            // Multiple videos - create tabs
+            return `
+                <div class="video-tabs">
+                    <div class="video-tab-buttons">
+                        ${script.videoUrls.map((url, index) => `
+                            <button class="video-tab-btn ${index === 0 ? 'active' : ''}" data-video-index="${index}">
+                                Demo ${index + 1}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div class="video-tab-content">
+                        ${script.videoUrls.map((url, index) => `
+                            <div class="video-container ${index === 0 ? 'active' : ''}" data-video-index="${index}">
+                                <iframe 
+                                    src="${url}" 
+                                    frameborder="0" 
+                                    allowfullscreen
+                                    width="100%" 
+                                    height="315">
+                                </iframe>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+    }
+    
+    // Fallback to single video
+    if (script.videoUrl) {
+        return `
+            <div class="video-container">
+                <iframe 
+                    src="${script.videoUrl}" 
+                    frameborder="0" 
+                    allowfullscreen
+                    width="100%" 
+                    height="315">
+                </iframe>
+            </div>
+        `;
+    }
+    
+    // No video available
+    return `
+        <div class="video-placeholder">
+            <i class="fas fa-play"></i>
+            <p>Demo Video Coming Soon</p>
+        </div>
+    `;
+}
+
+// Open script modal with details
+function openScriptModal(script) {
+    const modalContent = `
+        <div class="script-modal-header">
+            <h2>${script.title}</h2>
+            <div class="script-meta">
+                <span class="script-game">${script.game}</span>
+                <span class="script-version">${script.version}</span>
+            </div>
+        </div>
+        
+        <div class="script-modal-content">
+            <div class="script-video">
+                ${generateVideoContent(script)}
+            </div>
+            
+            <div class="script-details">
+                <div class="script-stats">
+                    <div class="stat">
+                        <i class="fas fa-download"></i>
+                        <span>${script.downloads.toLocaleString()} downloads</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-star"></i>
+                        <span>${script.rating}/5.0</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-calendar"></i>
+                        <span>Updated ${formatDate(script.lastUpdated)}</span>
+                    </div>
+                </div>
+                
+                <div class="script-description">
+                    <h3>Description</h3>
+                    <p>${script.description}</p>
+                </div>
+                
+                <div class="script-features">
+                    <h3>Features</h3>
+                    <ul>
+                        ${script.features.map(feature => `<li>${feature}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div class="script-installation">
+                    <h3>Installation</h3>
+                    <ol>
+                        <li>Make sure you have <a href="https://tampermonkey.net" target="_blank">Tampermonkey</a> installed in your browser</li>
+                        <li>Click the "Install Script" button below</li>
+                        <li>Tampermonkey will open with the script details</li>
+                        <li>Click "Install" to add the script to your collection</li>
+                        <li>Navigate to ${script.game} and enjoy the enhanced experience!</li>
+                    </ol>
+                </div>
+                
+                <div class="script-actions">
+                    <a href="${script.downloadUrl}" class="btn btn-primary" onclick="trackDownload('${script.title}');">
+                        <i class="fas fa-download"></i>
+                        Install Script
+                    </a>
+                    <a href="${script.githubUrl}" class="btn btn-secondary" target="_blank">
+                        <i class="fab fa-github"></i>
+                        View Source
+                    </a>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    modalBody.innerHTML = modalContent;
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    
+    // Initialize video tabs if multiple videos exist
+    initializeVideoTabs();
+}
+
+// Initialize video tabs functionality
+function initializeVideoTabs() {
+    const tabButtons = document.querySelectorAll('.video-tab-btn');
+    const videoContainers = document.querySelectorAll('.video-container[data-video-index]');
+    
+    if (tabButtons.length <= 1) return; // No tabs needed
+    
+    tabButtons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons and containers
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            videoContainers.forEach(container => container.classList.remove('active'));
+            
+            // Add active class to clicked button and corresponding container
+            button.classList.add('active');
+            const targetContainer = document.querySelector(`.video-container[data-video-index="${index}"]`);
+            if (targetContainer) {
+                targetContainer.classList.add('active');
+            }
+        });
+    });
+}
+
+// Initialize modal functionality
+function initializeModal() {
+    closeModal.onclick = () => {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    };
+    
+    window.onclick = (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    };
+}
+
+// Initialize statistics counter animation
+function initializeStats() {
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateStats();
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    const statsSection = document.querySelector('.stats');
+    if (statsSection) {
+        observer.observe(statsSection);
+    }
+}
+
+// Animate statistics numbers
+function animateStats() {
+    const statNumbers = document.querySelectorAll('.stat-number');
+    
+    statNumbers.forEach(stat => {
+        const target = parseInt(stat.getAttribute('data-target'));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            
+            if (target > 1000) {
+                stat.textContent = (current / 1000).toFixed(1) + 'K+';
+            } else {
+                stat.textContent = Math.floor(current).toLocaleString();
+            }
+        }, 16);
+    });
+}
+
+// Initialize smooth scrolling for navigation links
+function initializeSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const navHeight = document.querySelector('.navbar').offsetHeight;
+                const targetPosition = target.offsetTop - navHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+}
+
+// Initialize donation buttons
+function initializeDonationButtons() {
+    const paypalBtn = document.getElementById('paypalBtn');
+    const gcashBtn = document.getElementById('gcashBtn');
+    
+    // PayPal button
+    if (paypalBtn) {
+        paypalBtn.href = 'https://paypal.me/fatoow?country.x=PH&locale.x=en_US';
+        paypalBtn.onclick = () => trackDonation('PayPal');
+    }
+    
+    // GCash button
+    if (gcashBtn) {
+        gcashBtn.onclick = () => {
+            showGCashModal();
+            trackDonation('GCash');
+        };
+    }
+}
+
+// Show GCash donation modal
+function showGCashModal() {
+    const modal = document.createElement('div');
+    modal.className = 'gcash-modal';
+    modal.innerHTML = `
+        <div class="gcash-modal-content">
+            <div class="gcash-modal-header">
+                <h2><i class="fas fa-mobile-alt"></i> GCash Donation</h2>
+                <button class="gcash-close" onclick="this.closest('.gcash-modal').remove()">×</button>
+            </div>
+            <div class="gcash-modal-body">
+                <div class="gcash-qr-container">
+                    <div class="gcash-qr-placeholder">
+                        <i class="fas fa-qrcode" style="font-size: 4rem; color: #007bff;"></i>
+                        <p>Your GCash QR Code</p>
+                    </div>
+                </div>
+                <div class="gcash-info">
+                    <div class="gcash-detail">
+                        <strong>Account Name:</strong> fatoow
+                    </div>
+                    <div class="gcash-detail">
+                        <strong>Instructions:</strong> Scan the QR code with your GCash app
+                    </div>
+                </div>
+                <div class="gcash-note">
+                    <i class="fas fa-info-circle"></i>
+                    For security, please send a message after donating so we can verify the transaction.
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+}
+
+// Utility functions
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    });
+}
+
+function trackDownload(scriptName) {
+    console.log(`Download tracked: ${scriptName}`);
+    // Add your analytics tracking code here
+    // Example: gtag('event', 'download', { 'script_name': scriptName });
+}
+
+function trackDonation(platform) {
+    console.log(`Donation link clicked: ${platform}`);
+    // Add your analytics tracking code here
+    // Example: gtag('event', 'donation_click', { 'platform': platform });
+}
+
+// Add CSS for modal content
+const modalStyles = `
+<style>
+.script-modal-header {
+    padding: 2rem 2rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.script-modal-header h2 {
+    margin: 0 0 1rem 0;
+    color: #fff;
+    font-size: 2rem;
+}
+
+.script-meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.script-modal-content {
+    padding: 2rem;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.script-stats {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.script-stats .stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #ccc;
+}
+
+.script-stats .stat i {
+    color: #00d4ff;
+}
+
+.script-details h3 {
+    color: #fff;
+    margin: 2rem 0 1rem 0;
+    font-size: 1.2rem;
+}
+
+.script-details p {
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.script-details ul,
+.script-details ol {
+    color: #ccc;
+    line-height: 1.6;
+    padding-left: 1.5rem;
+}
+
+.script-details li {
+    margin-bottom: 0.5rem;
+}
+
+.script-details a {
+    color: #00d4ff;
+    text-decoration: none;
+}
+
+.script-details a:hover {
+    text-decoration: underline;
+}
+
+.script-actions {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .script-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .script-actions {
+        flex-direction: column;
+    }
+    
+    .modal-content {
+        margin: 2% auto;
+        width: 95%;
+        max-height: 90vh;
+    }
+}
+</style>
+`;
+
+// Add the styles to the document head
+document.head.insertAdjacentHTML('beforeend', modalStyles);
+
+// Loading animation for script cards
+function showLoadingCards() {
+    scriptsGrid.innerHTML = Array(6).fill().map(() => `
+        <div class="script-card loading">
+            <div class="script-header">
+                <div class="script-title">Loading...</div>
+                <div class="script-version">v0.0.0</div>
+            </div>
+            <div class="script-game">Loading game...</div>
+            <div class="script-description">Loading description...</div>
+            <div class="script-features">
+                <ul>
+                    <li>Loading feature...</li>
+                    <li>Loading feature...</li>
+                    <li>Loading feature...</li>
+                </ul>
+            </div>
+            <div class="script-actions">
+                <div class="btn btn-primary">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    Loading...
+                </div>
+                <div class="btn btn-ghost">
+                    <i class="fab fa-github"></i>
+                    Source
+                </div>
+            </div>
+        </div>
+    `).join('');
+}

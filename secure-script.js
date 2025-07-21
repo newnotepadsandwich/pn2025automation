@@ -334,169 +334,27 @@ function showSecurityWarningModal(script) {
     trackSecurityEvent('security_warning_shown', script.title);
 }
 
-// Show donation prompt after download
+// Show donation prompt after download - DISABLED to avoid duplicate UI
 function showDonationPrompt(script) {
-    const donationModal = document.createElement('div');
-    donationModal.className = 'security-modal donation-prompt';
-    donationModal.innerHTML = `
-        <div class="security-modal-content">
-            <div class="security-header">
-                <i class="fas fa-heart"></i>
-                <h3>Enjoying ${SecurityUtils.sanitizeHTML(script.title)}?</h3>
-            </div>
-            <div class="security-body">
-                <p>🎉 <strong>Download successful!</strong> Your script should now be installing in Tampermonkey.</p>
-                <p>If you find this script helpful, consider supporting our work to keep developing amazing tools for the gaming community!</p>
-                
-                <div class="donation-quick-options">
-                    <a href="https://paypal.me/fatoow?country.x=PH&locale.x=en_US" target="_blank" class="btn btn-primary">
-                        <i class="fab fa-paypal"></i>
-                        Support via PayPal
-                    </a>
-                    <button class="btn btn-accent" onclick="document.getElementById('gcashBtn').click()">
-                        <i class="fas fa-mobile-alt"></i>
-                        Support via GCash
-                    </button>
-                </div>
-                
-                <div class="support-benefits">
-                    <p><small>Your support helps us:</small></p>
-                    <ul>
-                        <li>🚀 Develop new scripts and features</li>
-                        <li>🛡️ Keep all scripts secure and updated</li>
-                        <li>📚 Create better documentation and tutorials</li>
-                        <li>🆓 Keep everything free for the community</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="security-actions">
-                <button class="btn btn-secondary close-btn">Maybe Later</button>
-                <a href="#donate" class="btn btn-primary" onclick="this.closest('.donation-prompt').remove(); document.querySelector('#donate').scrollIntoView({behavior:'smooth'});">
-                    <i class="fas fa-gift"></i>
-                    See All Options
-                </a>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(donationModal);
-    
-    // Close handlers
-    donationModal.querySelector('.close-btn').onclick = () => {
-        document.body.removeChild(donationModal);
-    };
-    
-    donationModal.onclick = (e) => {
-        if (e.target === donationModal) {
-            document.body.removeChild(donationModal);
-        }
-    };
-    
-    // Auto-close after 15 seconds if no interaction
-    setTimeout(() => {
-        if (document.body.contains(donationModal)) {
-            document.body.removeChild(donationModal);
-        }
-    }, 15000);
+    // Disabled to prevent duplicate donation UI elements
+    console.log('Donation prompt disabled to avoid duplicate elements');
 }
 
-// Enhanced donation buttons with security
+// Enhanced donation buttons with security - DISABLED to avoid conflicts
 function initializeDonationButtons() {
-    const donations = [
-        {
-            id: 'paypalBtn',
-            url: 'https://paypal.me/fatoow?country.x=PH&locale.x=en_US', // Your actual PayPal
-            platform: 'PayPal'
-        }
-    ];
-    
-    donations.forEach(donation => {
-        const btn = document.getElementById(donation.id);
-        if (btn && SecurityUtils.isValidURL(donation.url)) {
-            btn.href = donation.url;
-            btn.setAttribute('target', '_blank');
-            btn.setAttribute('rel', 'noopener noreferrer');
-            btn.onclick = SecurityUtils.rateLimitedAction(() => {
-                trackSecurityEvent('donation_click', donation.platform);
-            }, 1000);
-        }
-    });
-    
-    // Hide Ko-fi and Patreon buttons since they're not available
-    const kofiBtn = document.getElementById('kofiBtn');
-    const patreonBtn = document.getElementById('patreonBtn');
-    if (kofiBtn && kofiBtn.parentElement) {
-        kofiBtn.parentElement.style.display = 'none';
-    }
-    if (patreonBtn && patreonBtn.parentElement) {
-        patreonBtn.parentElement.style.display = 'none';
-    }
+    // Disabled to use inline HTML implementation instead
+    console.log('Secure donation buttons initialization disabled - using inline HTML implementation');
 }
 
-// Add GCash donation option
+// Add GCash donation option - DISABLED to avoid duplicate UI
 function addGCashSupport() {
-    const donationOptions = document.querySelector('.donation-options');
-    if (!donationOptions) return;
-    
-    const gcashCard = DOMUtils.createElement('div', { 'class': 'donation-card gcash-card' });
-    gcashCard.innerHTML = `
-        <i class="fas fa-mobile-alt"></i>
-        <h3>GCash</h3>
-        <p>Send via GCash for Filipino supporters</p>
-        <button class="btn btn-accent" id="gcashBtn">
-            <i class="fas fa-qrcode"></i>
-            Show GCash QR
-        </button>
-    `;
-    
-    donationOptions.appendChild(gcashCard);
-    
-    // GCash QR modal
-    document.getElementById('gcashBtn').onclick = SecurityUtils.rateLimitedAction(() => {
-        showGCashModal();
-        trackSecurityEvent('donation_click', 'GCash');
-    }, 1000);
+    // Disabled to prevent duplicate GCash cards - using HTML implementation instead
+    console.log('GCash support addition disabled - using HTML implementation');
 }
 
 function showGCashModal() {
-    const gcashModal = document.createElement('div');
-    gcashModal.className = 'gcash-modal';
-    gcashModal.innerHTML = `
-        <div class="gcash-modal-content">
-            <span class="close-gcash">&times;</span>
-            <div class="gcash-header">
-                <i class="fas fa-mobile-alt"></i>
-                <h3>GCash Donation</h3>
-            </div>
-            <div class="gcash-body">
-                <div class="qr-container">
-                    <img src="assets/images/gcash-qr.png" alt="GCash QR Code" class="gcash-qr" 
-                         onerror="this.src='assets/images/gcash-qr-placeholder.svg'">
-                    <p>Scan this QR code with your GCash app</p>
-                </div>
-                <div class="gcash-details">
-                    <p><strong>Account Name:</strong> fatoow</p>
-                    <p><strong>Instructions:</strong> Scan the QR code with your GCash app</p>
-                </div>
-                <div class="security-notice">
-                    <i class="fas fa-info-circle"></i>
-                    <p>For security, please send a message after donating so we can verify the transaction.</p>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(gcashModal);
-    
-    gcashModal.querySelector('.close-gcash').onclick = () => {
-        document.body.removeChild(gcashModal);
-    };
-    
-    gcashModal.onclick = (e) => {
-        if (e.target === gcashModal) {
-            document.body.removeChild(gcashModal);
-        }
-    };
+    // Disabled - using inline HTML QR container instead
+    console.log('GCash modal disabled - using inline HTML QR container');
 }
 
 // Security monitoring and reporting
@@ -525,8 +383,8 @@ function initializeSecurityFeatures() {
         lastClickTime = now;
     });
     
-    // Add GCash support
-    addGCashSupport();
+    // Add GCash support - DISABLED
+    // addGCashSupport(); // Disabled to prevent duplicate GCash cards
 }
 
 // Security event tracking

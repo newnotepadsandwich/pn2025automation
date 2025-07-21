@@ -359,61 +359,16 @@ function initializeSmoothScroll() {
     });
 }
 
-// Initialize donation buttons
+// Initialize donation buttons - DISABLED to avoid conflicts with inline HTML implementation
 function initializeDonationButtons() {
-    const paypalBtn = document.getElementById('paypalBtn');
-    const gcashBtn = document.getElementById('gcashBtn');
-    
-    // PayPal button
-    if (paypalBtn) {
-        paypalBtn.href = 'https://paypal.me/fatoow?country.x=PH&locale.x=en_US';
-        paypalBtn.onclick = () => trackDonation('PayPal');
-    }
-    
-    // GCash button
-    if (gcashBtn) {
-        gcashBtn.onclick = () => {
-            showGCashModal();
-            trackDonation('GCash');
-        };
-    }
+    // Disabled to use inline HTML implementation instead
+    console.log('Donation buttons initialization disabled - using inline HTML implementation');
 }
 
-// Show GCash donation modal
+// Show GCash donation modal - DISABLED 
 function showGCashModal() {
-    const modal = document.createElement('div');
-    modal.className = 'gcash-modal';
-    modal.innerHTML = `
-        <div class="gcash-modal-content">
-            <div class="gcash-modal-header">
-                <h2><i class="fas fa-mobile-alt"></i> GCash Donation</h2>
-                <button class="gcash-close" onclick="this.closest('.gcash-modal').remove()">×</button>
-            </div>
-            <div class="gcash-modal-body">
-                <div class="gcash-qr-container">
-                    <div class="gcash-qr-placeholder">
-                        <i class="fas fa-qrcode" style="font-size: 4rem; color: #007bff;"></i>
-                        <p>Your GCash QR Code</p>
-                    </div>
-                </div>
-                <div class="gcash-info">
-                    <div class="gcash-detail">
-                        <strong>Account Name:</strong> fatoow
-                    </div>
-                    <div class="gcash-detail">
-                        <strong>Instructions:</strong> Scan the QR code with your GCash app
-                    </div>
-                </div>
-                <div class="gcash-note">
-                    <i class="fas fa-info-circle"></i>
-                    For security, please send a message after donating so we can verify the transaction.
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-    document.body.style.overflow = 'hidden';
+    // Disabled - using inline HTML QR container instead
+    console.log('GCash modal disabled - using inline HTML QR container');
 }
 
 // Utility functions

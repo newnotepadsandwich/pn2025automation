@@ -1049,6 +1049,88 @@ html {
     border-radius: 8px;
     padding: 1rem;
     margin-top: 1rem;
+    color: #fff;
+}
+
+/* Security Warning Styles */
+.security-warning {
+    background: rgba(255, 193, 7, 0.1);
+    border: 2px solid rgba(255, 193, 7, 0.4);
+    border-radius: 10px;
+    padding: 1.2rem;
+    margin: 1rem 0;
+    position: relative;
+}
+
+.security-warning h4 {
+    color: #ffc107;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.security-warning p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0;
+}
+
+/* Installation Methods Styles */
+.install-methods {
+    display: grid;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.install-method {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border-left: 4px solid #28a745;
+    transition: all 0.3s ease;
+}
+
+.install-method:hover {
+    border-left-color: #00d4ff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.install-method:first-child {
+    border-left-color: #28a745;
+}
+
+.install-method:last-child {
+    border-left-color: #007bff;
+}
+
+.install-method h4 {
+    color: #00d4ff;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.install-method:first-child h4 {
+    color: #28a745;
+}
+
+.install-method:last-child h4 {
+    color: #007bff;
+}
+
+.method-note {
+    background: rgba(0, 123, 255, 0.1);
+    border: 1px solid rgba(0, 123, 255, 0.3);
+    border-radius: 6px;
+    padding: 0.8rem;
+    margin-top: 0.8rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+    margin-top: 1rem;
     color: #00d4ff !important;
 }
 

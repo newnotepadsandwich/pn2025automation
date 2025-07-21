@@ -1,0 +1,459 @@
+/* Security-Enhanced Styles */
+
+/* Security badges and indicators */
+.security-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, #00d4aa 0%, #00a87f 100%);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    z-index: 10;
+}
+
+.security-badge i {
+    font-size: 0.8rem;
+}
+
+/* Security modal styles */
+.security-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2001;
+    backdrop-filter: blur(5px);
+}
+
+.security-modal-content {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+.security-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    color: #fff;
+}
+
+.security-header i {
+    font-size: 2rem;
+    color: #00d4aa;
+}
+
+.security-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.security-body {
+    color: #ccc;
+    line-height: 1.6;
+}
+
+.script-info {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    border-left: 3px solid #00d4aa;
+}
+
+.script-info strong {
+    color: #fff;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.script-info code {
+    background: rgba(0, 212, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #00d4ff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+}
+
+.security-checklist {
+    margin: 1.5rem 0;
+}
+
+.check-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: #00d4aa;
+}
+
+.check-item i {
+    color: #00d4aa;
+}
+
+.security-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    justify-content: flex-end;
+}
+
+/* Script security info in cards */
+.script-security-info {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+
+.safety-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: #ccc;
+}
+
+.safety-rating i {
+    color: #ffd700;
+    font-size: 0.8rem;
+}
+
+.permissions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #ccc;
+}
+
+.permissions code {
+    background: rgba(0, 212, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #00d4ff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+}
+
+/* GCash modal styles */
+.gcash-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2001;
+    backdrop-filter: blur(5px);
+}
+
+.gcash-modal-content {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 400px;
+    width: 90%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    position: relative;
+}
+
+.close-gcash {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: #ccc;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-gcash:hover {
+    color: #00d4ff;
+}
+
+.gcash-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    color: #fff;
+}
+
+.gcash-header i {
+    font-size: 2rem;
+    color: #007dbb;
+}
+
+.gcash-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.qr-container {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.gcash-qr {
+    width: 200px;
+    height: 200px;
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.gcash-details {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border-left: 3px solid #007dbb;
+}
+
+.gcash-details p {
+    margin: 0.5rem 0;
+    color: #ccc;
+}
+
+.gcash-details strong {
+    color: #fff;
+}
+
+.security-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: rgba(255, 193, 7, 0.1);
+    border-radius: 8px;
+    border-left: 3px solid #ffc107;
+}
+
+.security-notice i {
+    color: #ffc107;
+    margin-top: 2px;
+}
+
+.security-notice p {
+    margin: 0;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+/* GCash donation card */
+.gcash-card {
+    background: linear-gradient(135deg, #007dbb 0%, #005c8a 100%);
+}
+
+.gcash-card i {
+    color: #fff !important;
+}
+
+.gcash-card h3 {
+    color: #fff;
+}
+
+.gcash-card p {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Enhanced button security states */
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.btn.loading {
+    position: relative;
+    color: transparent;
+}
+
+.btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Security indicators */
+.security-level-high::before {
+    content: '🔒';
+    margin-right: 0.5rem;
+}
+
+.security-level-medium::before {
+    content: '⚠️';
+    margin-right: 0.5rem;
+}
+
+.security-level-low::before {
+    content: '❌';
+    margin-right: 0.5rem;
+}
+
+/* Content Security Policy violation reporting */
+.csp-violation-notice {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #ff6b6b;
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    z-index: 9999;
+    max-width: 300px;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive security elements */
+@media (max-width: 768px) {
+    .security-modal-content,
+    .gcash-modal-content {
+        margin: 2rem;
+        padding: 1.5rem;
+    }
+    
+    .security-actions {
+        flex-direction: column;
+    }
+    
+    .script-security-info {
+        font-size: 0.8rem;
+    }
+    
+    .gcash-qr {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .security-badge {
+        position: relative;
+        margin-bottom: 1rem;
+        align-self: flex-start;
+    }
+}
+
+/* Print styles (security: hide sensitive info when printing) */
+@media print {
+    .security-modal,
+    .gcash-modal,
+    .donation-card,
+    .script-actions {
+        display: none !important;
+    }
+}
+
+/* Donation prompt styles */
+.donation-prompt .security-modal-content {
+    max-width: 600px;
+    text-align: center;
+}
+
+.donation-prompt .security-header {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: #ff6b6b;
+    margin-bottom: 1.5rem;
+}
+
+.donation-quick-options {
+    display: flex;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.donation-quick-options .btn {
+    flex: 1;
+    min-width: 150px;
+    max-width: 200px;
+}
+
+.support-benefits {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 1rem 0;
+    text-align: left;
+}
+
+.support-benefits ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0 0;
+}
+
+.support-benefits li {
+    padding: 0.25rem 0;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.donation-prompt .security-actions {
+    margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+    .donation-quick-options {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .donation-quick-options .btn {
+        min-width: 200px;
+        max-width: 100%;
+    }
+}

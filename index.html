@@ -132,17 +132,6 @@
                 </div>
                 
                 <div class="donation-options">
-                    <!-- PayPal Donation -->
-                    <div class="donation-card paypal-card">
-                        <i class="fab fa-paypal"></i>
-                        <h3>PayPal</h3>
-                        <p>Quick and secure international donations</p>
-                        <button class="btn btn-primary" id="paypalBtn">
-                            <i class="fab fa-paypal"></i>
-                            Donate via PayPal
-                        </button>
-                    </div>
-                    
                     <!-- Ko-fi Donation -->
                     <div class="donation-card kofi-card">
                         <i class="fas fa-coffee"></i>
@@ -365,12 +354,10 @@
         console.log('=== DONATION DEBUG ===');
         const allCards = document.querySelectorAll('.donation-card');
         const gcashCards = document.querySelectorAll('.gcash-card');
-        const paypalCards = document.querySelectorAll('.paypal-card');
         const kofiCards = document.querySelectorAll('.kofi-card');
         
         console.log('Total donation cards:', allCards.length);
         console.log('GCash cards:', gcashCards.length);
-        console.log('PayPal cards:', paypalCards.length);
         console.log('Ko-fi cards:', kofiCards.length);
         
         // Show GCash QR code on button click
@@ -385,18 +372,6 @@
                 console.log('GCash button clicked - toggling QR display');
                 gcashQR.style.display = gcashQR.style.display === 'none' ? 'block' : 'none';
                 console.log('QR display is now:', gcashQR.style.display);
-            });
-        }
-        
-        // PayPal functionality
-        var paypalBtn = document.getElementById('paypalBtn');
-        console.log('PayPal button found:', !!paypalBtn);
-        
-        if (paypalBtn) {
-            paypalBtn.addEventListener('click', function(e) {
-                console.log('PayPal button clicked - opening PayPal');
-                e.preventDefault();
-                window.open('https://www.paypal.com/paypalme/fatoow?country.x=PH&locale.x=en_US', '_blank');
             });
         }
         

@@ -96,7 +96,7 @@ function createScriptCard(script) {
         <div class="script-actions">
             <button class="btn btn-primary" onclick="event.stopPropagation(); downloadScript('${script.downloadUrl}', '${script.title}');">
                 <i class="fas fa-download"></i>
-                Install
+                Install Script
             </button>
         </div>
     `;
@@ -221,10 +221,10 @@ function openScriptModal(script) {
                     <h3>Installation</h3>
                     <ol>
                         <li>Make sure you have <a href="https://tampermonkey.net" target="_blank">Tampermonkey</a> installed in your browser</li>
-                        <li>Click the "Install Script" button below</li>
-                        <li>Tampermonkey will open with the script details</li>
-                        <li>Click "Install" to add the script to your collection</li>
-                        <li>Navigate to ${script.game} and enjoy the enhanced experience!</li>
+                        <li>Click the "Install Script" button below to download the file</li>
+                        <li>Open the downloaded .user.js file with a text editor</li>
+                        <li>Copy all content and paste it into a new Tampermonkey script</li>
+                        <li>Save the script (Ctrl+S) and navigate to ${script.game} to enjoy!</li>
                     </ol>
                 </div>
                 
@@ -550,14 +550,16 @@ function downloadScript(scriptUrl, scriptTitle) {
     link.click();
     document.body.removeChild(link);
     
-    // Show install instructions
+    // Show simple download confirmation with manual installation steps
     setTimeout(() => {
-        alert(`📥 Script Download Started!\n\n` +
-              `🔧 Next Steps:\n` +
-              `1. The ${scriptTitle} file should download automatically\n` +
-              `2. Open the downloaded .user.js file\n` +
-              `3. Tampermonkey will prompt you to install it\n` +
-              `4. Click "Install" in the Tampermonkey dialog\n\n` +
-              `💡 If it didn't download automatically, check your Downloads folder or try right-clicking the Install button and selecting "Save link as..."`);
+        alert(`✅ ${scriptTitle} Downloaded!\n\n` +
+              `� Manual Installation Steps:\n` +
+              `1. Open the downloaded .user.js file with any text editor\n` +
+              `2. Copy all the content (Ctrl+A, then Ctrl+C)\n` +
+              `3. Click the Tampermonkey icon in your browser\n` +
+              `4. Select "Create a new script"\n` +
+              `5. Delete everything and paste the copied content\n` +
+              `6. Press Ctrl+S to save\n\n` +
+              `🎮 That's it! The script is now ready to use on Pockie Ninja!`);
     }, 500);
 }

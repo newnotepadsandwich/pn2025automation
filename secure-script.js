@@ -120,6 +120,7 @@ const scriptsData = [
         ],
         downloads: 8250,
         rating: 4.9,
+        videoUrl: "https://www.youtube.com/embed/F_qCSTN0AXo",
         downloadUrl: "scripts/auto-battle-v3-stable.user.js",
         githubUrl: "https://github.com/newnotepadsandwich/info.hack",
         lastUpdated: "2025-01-22",

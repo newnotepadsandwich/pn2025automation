@@ -538,17 +538,35 @@ function downloadScript(scriptUrl, scriptTitle) {
     // Track the download
     trackDownload(scriptTitle);
     
-    // Create a temporary link element for download
-    const link = document.createElement('a');
-    link.href = scriptUrl;
-    link.download = scriptUrl.split('/').pop(); // Get filename from URL
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
+    // Create a blob to force regular download bypassing Tampermonkey
+    fetch(scriptUrl)
+        .then(response => response.text())
+        .then(scriptContent => {
+            const blob = new Blob([scriptContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = scriptUrl.split('/').pop().replace('.user.js', '.user.js.txt');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        });
     
-    // Add to DOM temporarily and click
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Show installation instructions
+    setTimeout(() => {
+        alert(`✅ ${scriptTitle} Downloaded!\n\n` +
+              `📁 File saved with .txt extension to avoid browser issues\n\n` +
+              `📋 Manual Installation Steps:\n` +
+              `1. Find the downloaded file in your Downloads folder\n` +
+              `2. Open it with any text editor (Notepad, etc.)\n` +
+              `3. Copy all the content (Ctrl+A, then Ctrl+C)\n` +
+              `4. Click the Tampermonkey icon in your browser\n` +
+              `5. Select "Create a new script"\n` +
+              `6. Delete everything and paste the copied content\n` +
+              `7. Press Ctrl+S to save\n\n` +
+              `🎮 The script is now ready to use on Pockie Ninja!`);
+    }, 500);
     
     // Show simple download confirmation with manual installation steps
     setTimeout(() => {

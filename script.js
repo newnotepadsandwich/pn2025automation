@@ -680,3 +680,293 @@ if (!document.getElementById('toast-styles')) {
     `;
     document.head.appendChild(style);
 }
+
+// Review System Functionality
+function initializeReviewSystem() {
+    const addReviewBtn = document.getElementById('addReviewBtn');
+    const loadMoreBtn = document.getElementById('loadMoreReviews');
+    
+    if (addReviewBtn) {
+        addReviewBtn.addEventListener('click', openReviewModal);
+    }
+    
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', loadMoreReviews);
+    }
+    
+    // Initialize helpful buttons
+    initializeHelpfulButtons();
+}
+
+function openReviewModal() {
+    // Create review modal HTML
+    const reviewModalHTML = `
+        <div class="review-modal-overlay" id="reviewModalOverlay">
+            <div class="review-modal">
+                <div class="review-modal-header">
+                    <h3>Write a Review</h3>
+                    <button class="review-modal-close" id="reviewModalClose">&times;</button>
+                </div>
+                <div class="review-modal-body">
+                    <form id="reviewForm">
+                        <div class="form-group">
+                            <label for="reviewerName">Your Name *</label>
+                            <input type="text" id="reviewerName" required maxlength="50" placeholder="Enter your name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reviewScript">Script Used *</label>
+                            <select id="reviewScript" required>
+                                <option value="">Select a script</option>
+                                <option value="Auto Battle V3.8">Auto Battle V3.8</option>
+                                <option value="Auto Clicker Pro">Auto Clicker Pro</option>
+                                <option value="TB Auto Battle V5">TB Auto Battle V5</option>
+                                <option value="Pockie Auto Battle">Pockie Auto Battle</option>
+                                <option value="Auto Battle Smart Health">Auto Battle Smart Health</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reviewRating">Rating *</label>
+                            <div class="star-rating" id="starRating">
+                                <span class="star" data-rating="1">☆</span>
+                                <span class="star" data-rating="2">☆</span>
+                                <span class="star" data-rating="3">☆</span>
+                                <span class="star" data-rating="4">☆</span>
+                                <span class="star" data-rating="5">☆</span>
+                            </div>
+                            <input type="hidden" id="reviewRating" value="">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reviewText">Your Review *</label>
+                            <textarea id="reviewText" required rows="4" maxlength="500" 
+                                placeholder="Share your experience with the script. What worked well? Any issues you encountered?"></textarea>
+                            <div class="char-counter">
+                                <span id="charCount">0</span>/500 characters
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" id="cancelReview">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Submit Review</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Add modal to body
+    document.body.insertAdjacentHTML('beforeend', reviewModalHTML);
+    
+    // Initialize modal functionality
+    initializeReviewModal();
+}
+
+function initializeReviewModal() {
+    const overlay = document.getElementById('reviewModalOverlay');
+    const closeBtn = document.getElementById('reviewModalClose');
+    const cancelBtn = document.getElementById('cancelReview');
+    const form = document.getElementById('reviewForm');
+    const starRating = document.getElementById('starRating');
+    const reviewText = document.getElementById('reviewText');
+    const charCount = document.getElementById('charCount');
+    
+    // Close modal functionality
+    const closeModal = () => {
+        overlay.remove();
+    };
+    
+    closeBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeModal();
+    });
+    
+    // Star rating functionality
+    let selectedRating = 0;
+    starRating.addEventListener('click', (e) => {
+        if (e.target.classList.contains('star')) {
+            selectedRating = parseInt(e.target.dataset.rating);
+            document.getElementById('reviewRating').value = selectedRating;
+            updateStarDisplay(selectedRating);
+        }
+    });
+    
+    starRating.addEventListener('mouseover', (e) => {
+        if (e.target.classList.contains('star')) {
+            const hoverRating = parseInt(e.target.dataset.rating);
+            updateStarDisplay(hoverRating);
+        }
+    });
+    
+    starRating.addEventListener('mouseleave', () => {
+        updateStarDisplay(selectedRating);
+    });
+    
+    function updateStarDisplay(rating) {
+        const stars = starRating.querySelectorAll('.star');
+        stars.forEach((star, index) => {
+            if (index < rating) {
+                star.textContent = '★';
+                star.style.color = '#ffd700';
+            } else {
+                star.textContent = '☆';
+                star.style.color = '#ddd';
+            }
+        });
+    }
+    
+    // Character counter
+    reviewText.addEventListener('input', () => {
+        charCount.textContent = reviewText.value.length;
+    });
+    
+    // Form submission
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        submitReview();
+    });
+}
+
+function submitReview() {
+    const reviewerName = document.getElementById('reviewerName').value.trim();
+    const reviewScript = document.getElementById('reviewScript').value;
+    const reviewRating = document.getElementById('reviewRating').value;
+    const reviewText = document.getElementById('reviewText').value.trim();
+    
+    // Validation
+    if (!reviewerName || !reviewScript || !reviewRating || !reviewText) {
+        showToast('Please fill in all required fields', 'error');
+        return;
+    }
+    
+    if (reviewRating < 1 || reviewRating > 5) {
+        showToast('Please select a rating', 'error');
+        return;
+    }
+    
+    // Create review object
+    const newReview = {
+        id: Date.now(),
+        name: reviewerName,
+        script: reviewScript,
+        rating: parseInt(reviewRating),
+        text: reviewText,
+        date: 'Just now',
+        helpful: 0
+    };
+    
+    // Add review to the list
+    addReviewToList(newReview);
+    
+    // Close modal
+    document.getElementById('reviewModalOverlay').remove();
+    
+    // Show success message
+    showToast('Thank you for your review! Your feedback helps our community.', 'success');
+    
+    // Scroll to reviews section
+    document.getElementById('reviews').scrollIntoView({ behavior: 'smooth' });
+}
+
+function addReviewToList(review) {
+    const reviewsList = document.getElementById('reviewsList');
+    const loadMoreSection = document.querySelector('.load-more-section');
+    
+    // Generate stars HTML
+    const starsHTML = Array(5).fill(0).map((_, i) => {
+        const starClass = i < review.rating ? 'fas fa-star' : 'far fa-star';
+        return `<i class="${starClass}"></i>`;
+    }).join('');
+    
+    // Generate avatar initials
+    const initials = review.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+    
+    const reviewHTML = `
+        <div class="review-item new-review">
+            <div class="review-header">
+                <div class="reviewer-info">
+                    <div class="avatar">${initials}</div>
+                    <div class="reviewer-details">
+                        <h4>${review.name}</h4>
+                        <div class="review-meta">
+                            <div class="stars">
+                                ${starsHTML}
+                            </div>
+                            <span class="review-date">${review.date}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-script">${review.script}</div>
+            </div>
+            <div class="review-content">
+                <p>${review.text}</p>
+            </div>
+            <div class="review-actions">
+                <button class="helpful-btn" data-review-id="${review.id}">
+                    <i class="fas fa-thumbs-up"></i> Helpful (${review.helpful})
+                </button>
+                <button class="reply-btn"><i class="fas fa-reply"></i> Reply</button>
+            </div>
+        </div>
+    `;
+    
+    // Insert at the beginning of the reviews list
+    reviewsList.insertAdjacentHTML('afterbegin', reviewHTML);
+    
+    // Add animation
+    const newReviewElement = reviewsList.querySelector('.new-review');
+    newReviewElement.style.opacity = '0';
+    newReviewElement.style.transform = 'translateY(20px)';
+    
+    setTimeout(() => {
+        newReviewElement.style.transition = 'all 0.5s ease';
+        newReviewElement.style.opacity = '1';
+        newReviewElement.style.transform = 'translateY(0)';
+        newReviewElement.classList.remove('new-review');
+    }, 100);
+    
+    // Initialize helpful button for new review
+    initializeHelpfulButtons();
+}
+
+function initializeHelpfulButtons() {
+    const helpfulBtns = document.querySelectorAll('.helpful-btn');
+    helpfulBtns.forEach(btn => {
+        // Remove existing listeners to prevent duplicates
+        btn.replaceWith(btn.cloneNode(true));
+    });
+    
+    // Add new listeners
+    document.querySelectorAll('.helpful-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const currentCount = parseInt(btn.textContent.match(/\d+/)[0]);
+            const newCount = currentCount + 1;
+            btn.innerHTML = `<i class="fas fa-thumbs-up"></i> Helpful (${newCount})`;
+            btn.disabled = true;
+            btn.style.opacity = '0.6';
+            showToast('Thanks for your feedback!', 'success');
+        });
+    });
+}
+
+function loadMoreReviews() {
+    const loadMoreBtn = document.getElementById('loadMoreReviews');
+    loadMoreBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+    loadMoreBtn.disabled = true;
+    
+    // Simulate loading delay
+    setTimeout(() => {
+        showToast('No more reviews to load at this time.', 'info');
+        loadMoreBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Load More Reviews';
+        loadMoreBtn.disabled = false;
+    }, 1000);
+}
+
+// Initialize review system when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializeReviewSystem();
+});

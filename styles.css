@@ -811,15 +811,18 @@ body {
 /* Reviews Section */
 .reviews {
     padding: 80px 0;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: transparent;
+    position: relative;
 }
 
 .review-stats {
-    background: white;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 16px;
     padding: 40px;
     margin-bottom: 40px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .rating-overview {
@@ -836,7 +839,7 @@ body {
 .rating-number {
     font-size: 4rem;
     font-weight: 700;
-    color: #2c3e50;
+    color: #00d4ff;
     display: block;
 }
 
@@ -851,7 +854,7 @@ body {
 }
 
 .overall-rating p {
-    color: #666;
+    color: rgba(255, 255, 255, 0.8);
     margin: 0;
 }
 
@@ -870,13 +873,13 @@ body {
 
 .rating-bar span:first-child {
     width: 30px;
-    color: #666;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .rating-bar .bar {
     flex: 1;
     height: 8px;
-    background: #e9ecef;
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 4px;
     overflow: hidden;
 }
@@ -890,12 +893,18 @@ body {
 .rating-bar span:last-child {
     width: 40px;
     text-align: right;
-    color: #666;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .add-review-section {
     text-align: center;
     margin-bottom: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .reviews-list {
@@ -905,16 +914,18 @@ body {
 }
 
 .review-item {
-    background: white;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
     padding: 30px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .review-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
 }
 
 .review-header {
@@ -945,7 +956,7 @@ body {
 
 .reviewer-details h4 {
     margin: 0 0 8px 0;
-    color: #2c3e50;
+    color: white;
     font-size: 1.1rem;
 }
 
@@ -961,12 +972,12 @@ body {
 }
 
 .review-date {
-    color: #666;
+    color: rgba(255, 255, 255, 0.7);
     font-size: 0.85rem;
 }
 
 .review-script {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #007bff, #00d4ff);
     color: white;
     padding: 8px 16px;
     border-radius: 20px;
@@ -979,7 +990,7 @@ body {
 }
 
 .review-content p {
-    color: #555;
+    color: rgba(255, 255, 255, 0.9);
     line-height: 1.6;
     margin: 0;
 }
@@ -990,11 +1001,11 @@ body {
 }
 
 .helpful-btn, .reply-btn {
-    background: none;
-    border: 1px solid #e9ecef;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 8px 16px;
     border-radius: 20px;
-    color: #666;
+    color: rgba(255, 255, 255, 0.8);
     font-size: 0.85rem;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1004,15 +1015,15 @@ body {
 }
 
 .helpful-btn:hover, .reply-btn:hover {
-    background: #f8f9fa;
-    border-color: #dee2e6;
-    color: #495057;
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: white;
 }
 
 .helpful-btn.active {
-    background: #e3f2fd;
-    border-color: #2196F3;
-    color: #2196F3;
+    background: rgba(0, 212, 255, 0.2);
+    border-color: #00d4ff;
+    color: #00d4ff;
 }
 
 .load-more-section {
@@ -1888,5 +1899,235 @@ html {
     
     .gcash-qr-placeholder {
         padding: 1.5rem;
+    }
+}
+
+/* Review Modal Styles */
+.review-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    backdrop-filter: blur(5px);
+}
+
+.review-modal {
+    background: linear-gradient(135deg, #1e1e2e, #2d2d4a);
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.review-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.review-modal-header h3 {
+    color: white;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.review-modal-close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.review-modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.review-modal-body {
+    padding: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    color: white;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #00d4ff;
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.form-group select option {
+    background: #2d2d4a;
+    color: white;
+}
+
+.star-rating {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.star {
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #ddd;
+}
+
+.star:hover {
+    transform: scale(1.1);
+}
+
+.char-counter {
+    text-align: right;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 0.25rem;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-actions .btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 0.95rem;
+}
+
+.form-actions .btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.form-actions .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.form-actions .btn-primary {
+    background: linear-gradient(135deg, #007bff, #00d4ff);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.form-actions .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+/* New review animation styles */
+.new-review {
+    border-left: 3px solid #00d4ff;
+    background: rgba(0, 212, 255, 0.05);
+}
+
+/* Helpful button disabled state */
+.helpful-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+    .review-modal {
+        width: 95%;
+        margin: 1rem;
+    }
+    
+    .review-modal-header {
+        padding: 1rem 1.5rem;
+    }
+    
+    .review-modal-body {
+        padding: 1.5rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .form-actions .btn {
+        width: 100%;
+    }
+    
+    .star-rating {
+        justify-content: center;
+    }
+    
+    .star {
+        font-size: 1.8rem;
     }
 }

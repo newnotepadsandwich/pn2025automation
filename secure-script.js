@@ -162,9 +162,9 @@ const scriptsData = [
     },
     {
         id: 5,
-        title: "Auto Refine, Enhance, Inscribe & Recast 4.0",
+        title: "Auto Refine, Enhance, Inscribe & Recast 4.0.1",
         game: "Pockie Ninja",
-        version: "v4.0",
+        version: "v4.0.1",
         description: "⚔️ **COMPLETE EQUIPMENT ENHANCEMENT SUITE** - The ultimate all-in-one equipment automation system with intelligent stat detection, configurable requirements, and advanced processing logic. Master every aspect of equipment enhancement with professional-grade automation!",
         features: [
             "🔥 Smart Refine System - Configurable stat requirements with value ranges (e.g., 'Agility +60-65')",
@@ -179,7 +179,7 @@ const scriptsData = [
         downloads: 3650,
         rating: 4.8,
         videoUrl: "https://www.youtube.com/embed/X7CwtKFctAI",
-        downloadUrl: "scripts/auto-refine-enhance-v4.0.user.js",
+        downloadUrl: "scripts/auto-refine-enhance-v4.0.1.user.js",
         githubUrl: "https://github.com/newnotepadsandwich/info.hack",
         lastUpdated: "2025-01-26",
         verified: true,

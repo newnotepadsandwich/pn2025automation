@@ -8,7 +8,7 @@ class ShrinkMeIntegration {
             'auto-battle-v3.8-smart-health.user.js': 'https://shrinkme.ink/hYsO', // Auto Battle V3.8 (Smart Health Detection)
             'auto-battle-v3-stable.user.js': 'https://shrinkme.ink/n2nsb', // Auto Battle V3 (Stable Edition)
             'auto-open-items-v1.8.user.js': 'https://shrinkme.ink/9XteBa', // Auto Open Items 1.8 (Speed Slider)
-            'auto-refine-enhance-v4.0.user.js': 'https://shrinkme.ink/qDJYxBa', // Auto Refine, Enhance, Inscribe & Recast 4.0
+            'auto-refine-enhance-v4.0.1.user.js': 'https://shrinkme.ink/qDJYxBa', // Auto Refine, Enhance, Inscribe & Recast 4.0.1
             'auto-synthesize-soul-v3.0.user.js': 'https://shrinkme.ink/JASu', // Auto Synthesize Soul v3.0
             // Add more as you create them
             'auto-clicker-pro.user.js': null, // Create ShrinkMe.io link for this

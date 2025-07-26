@@ -1,78 +1,62 @@
-// ShrinkMe.io API Integration for Script Downloads
+// ShrinkMe.io Manual Links Integration for Script Downloads
 class ShrinkMeIntegration {
     constructor() {
         this.service = 'ShrinkMe.io'; 
-        this.apiKey = '3aead091082ee00ffd8b9a65ef383c5cce97d39b';
-        this.apiBase = 'https://shrinkme.io/api';
+        // Your manually created ShrinkMe.io links with descriptions
+        this.manualLinks = {
+            'pockie-tb-auto-battle-v5.user.js': 'https://shrinkme.ink/FmY5oNA', // Auto Battle - TB v5.0 (Beta Test)
+            'auto-battle-v3.8-smart-health.user.js': 'https://shrinkme.ink/hYsO', // Auto Battle V3.8 (Smart Health Detection)
+            'auto-battle-v3-stable.user.js': 'https://shrinkme.ink/n2nsb', // Auto Battle V3 (Stable Edition)
+            'auto-open-items-v1.8.user.js': 'https://shrinkme.ink/9XteBa', // Auto Open Items 1.8 (Speed Slider)
+            'auto-refine-enhance-v4.0.user.js': 'https://shrinkme.ink/qDJYxBa', // Auto Refine, Enhance, Inscribe & Recast 4.0
+            'auto-synthesize-soul-v3.0.user.js': 'https://shrinkme.ink/JASu', // Auto Synthesize Soul v3.0
+            // Add more as you create them
+            'auto-clicker-pro.user.js': null, // Create ShrinkMe.io link for this
+            'pockie-auto-battle.user.js': null // Create ShrinkMe.io link for this
+        };
     }
 
-    // Create a shortened link using ShrinkMe.io API
-    async createShortLink(originalUrl, customAlias = null) {
+    // Get manually created ShrinkMe.io link
+    getManualLink(originalUrl) {
         try {
-            console.log('Creating ShrinkMe.io short link for:', originalUrl);
+            console.log('Looking up manual ShrinkMe.io link for:', originalUrl);
             
-            // Build API URL
-            let apiUrl = `${this.apiBase}?api=${this.apiKey}&url=${encodeURIComponent(originalUrl)}`;
+            // Extract filename from URL
+            const filename = originalUrl.split('/').pop();
+            const shortUrl = this.manualLinks[filename];
             
-            // Add custom alias if provided
-            if (customAlias) {
-                apiUrl += `&alias=${encodeURIComponent(customAlias)}`;
-            }
-            
-            console.log('ShrinkMe.io API URL:', apiUrl);
-            
-            // Fetch the shortened URL using JSON response
-            const response = await fetch(apiUrl);
-            const result = await response.json();
-            
-            console.log('ShrinkMe.io API Response:', result);
-            
-            if (result.status === 'success') {
-                console.log('ShrinkMe.io Short Link created:', result.shortenedUrl);
+            if (shortUrl) {
+                console.log('Found manual ShrinkMe.io link:', shortUrl);
                 return {
                     success: true,
-                    shortUrl: result.shortenedUrl,
+                    shortUrl: shortUrl,
                     originalUrl: originalUrl,
-                    service: 'ShrinkMe.io API'
+                    service: 'ShrinkMe.io (Manual)'
                 };
             } else {
-                throw new Error(result.message || 'API returned error status');
+                console.log('No manual link found for:', filename, '- using original URL');
+                return {
+                    success: false,
+                    error: 'No ShrinkMe.io link configured for this script yet',
+                    fallbackUrl: originalUrl,
+                    shortUrl: originalUrl // Use original URL as fallback
+                };
             }
         } catch (error) {
-            console.error('ShrinkMe.io API Error:', error);
-            // Fallback to original URL
+            console.error('Manual ShrinkMe.io lookup error:', error);
             return {
                 success: false,
                 error: error.message,
                 fallbackUrl: originalUrl,
-                shortUrl: originalUrl // Use original URL as fallback
+                shortUrl: originalUrl
             };
         }
     }
 
-    // Quick link creation (synchronous fallback)
+    // Quick link creation (for testing and immediate use)
     createQuickLink(originalUrl) {
         console.log('Creating ShrinkMe.io link for:', originalUrl);
-        
-        // For synchronous calls, we'll start the async process but return original URL immediately
-        // The async process will update the UI when complete
-        this.createShortLink(originalUrl).then(result => {
-            if (result.success) {
-                console.log('✅ ShrinkMe.io link created:', result.shortUrl);
-                // Trigger a custom event to update UI if needed
-                window.dispatchEvent(new CustomEvent('shrinkMeReady', {
-                    detail: { originalUrl, result }
-                }));
-            }
-        });
-        
-        // Return immediate response for testing
-        return {
-            success: true,
-            shortUrl: originalUrl, // Will be updated async
-            originalUrl: originalUrl,
-            service: 'ShrinkMe.io (Processing...)'
-        };
+        return this.getManualLink(originalUrl);
     }
 
     // Process all script download links
@@ -85,28 +69,25 @@ class ShrinkMeIntegration {
                 const originalUrl = downloadBtn.href;
                 
                 // Skip if already processed or is not a script file
-                if (originalUrl.includes('shrinkme.io') || !originalUrl.includes('.user.js')) {
+                if (originalUrl.includes('shrinkme.i') || !originalUrl.includes('.user.js')) {
                     continue;
                 }
 
-                // Create ShrinkMe.io short link asynchronously
-                const filename = originalUrl.split('/').pop();
-                const customAlias = `pn-${filename.replace('.user.js', '')}`;
+                // Get manual ShrinkMe.io link
+                const result = this.getManualLink(originalUrl);
                 
-                this.createShortLink(originalUrl, customAlias).then(result => {
-                    if (result.success) {
-                        downloadBtn.href = result.shortUrl;
-                        downloadBtn.title = `Download via ${result.service} (${result.originalUrl})`;
-                        console.log(`✅ Updated download button with ${result.service} link:`, result.shortUrl);
-                        
-                        // Add visual indicator that monetization is active
-                        downloadBtn.style.boxShadow = '0 0 8px rgba(76, 175, 80, 0.3)';
-                        downloadBtn.setAttribute('data-monetized', 'true');
-                    } else {
-                        console.log(`ℹ️ Using original URL for ${filename}: ${result.error}`);
-                        // Keep original URL - no change needed
-                    }
-                });
+                if (result.success) {
+                    downloadBtn.href = result.shortUrl;
+                    downloadBtn.title = `Download via ${result.service} (${result.originalUrl})`;
+                    console.log(`✅ Updated download button with ${result.service} link:`, result.shortUrl);
+                    
+                    // Add visual indicator that monetization is active
+                    downloadBtn.style.boxShadow = '0 0 8px rgba(76, 175, 80, 0.3)';
+                    downloadBtn.setAttribute('data-monetized', 'true');
+                } else {
+                    console.log(`ℹ️ Using original URL for ${originalUrl.split('/').pop()}: ${result.error}`);
+                    // Keep original URL - no change needed
+                }
             }
         }
     }
@@ -125,20 +106,18 @@ class ShrinkMeIntegration {
         return this.createQuickLink(url);
     }
 
-    // Test the API with a real call
-    async testAPI() {
-        const testUrl = 'https://example.com/test-script.user.js';
-        console.log('🧪 Testing ShrinkMe.io API with:', testUrl);
-        
-        const result = await this.createShortLink(testUrl, 'api-test');
+    // Test with your actual links
+    testManualLinks() {
+        console.log('🧪 Testing Manual ShrinkMe.io Links');
+        const testUrl = 'https://newnotepadsandwich.github.io/pn2025automation/scripts/pockie-tb-auto-battle-v5.user.js';
+        const result = this.getManualLink(testUrl);
         
         if (result.success) {
-            console.log('✅ API Test Successful!', result);
-            return result;
+            console.log('✅ Manual Link Test Successful!', result);
         } else {
-            console.log('❌ API Test Failed:', result.error);
-            return result;
+            console.log('❌ Manual Link Test Failed:', result.error);
         }
+        return result;
     }
 }
 
@@ -151,7 +130,7 @@ window.shrinkMeIntegration = shrinkMeIntegration;
 // Initialize when the script loads
 shrinkMeIntegration.init();
 
-console.log('✅ ShrinkMe.io API Integration loaded with API key:', shrinkMeIntegration.apiKey.substring(0, 10) + '...');
+console.log('✅ ShrinkMe.io Manual Links Integration loaded with', Object.keys(shrinkMeIntegration.manualLinks).length, 'monetized scripts');
 window.shrinkMeIntegration = new ShrinkMeIntegration();
 
 // Auto-initialize

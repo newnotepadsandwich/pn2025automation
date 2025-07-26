@@ -546,10 +546,51 @@ function showLoadingCards() {
 }
 
 // Download script function
-function downloadScript(scriptUrl, scriptTitle) {
+async function downloadScript(scriptUrl, scriptTitle) {
     // Track the download
     trackDownload(scriptTitle);
     
+    // Check if ShrinkMe integration is available and URL isn't already monetized
+    if (window.shrinkMeIntegration && !scriptUrl.includes('shrinkme.io')) {
+        try {
+            // Show loading message
+            const loadingToast = showToast('🔗 Preparing monetized download link...', 'info');
+            
+            // Create monetized link using quick link format
+            const result = window.shrinkMeIntegration.monetizeUrl(scriptUrl);
+            
+            // Hide loading message
+            if (loadingToast) loadingToast.remove();
+            
+            if (result.success) {
+                // Show monetized link info
+                showToast('💰 Supporting the developer - redirecting to secure download...', 'success');
+                
+                // Open the monetized link
+                window.open(result.shortUrl, '_blank');
+                
+                // Show installation instructions after a delay
+                setTimeout(() => {
+                    showInstallationInstructions(scriptTitle);
+                }, 2000);
+                
+                return;
+            } else {
+                console.warn('ShrinkMe monetization failed, falling back to direct download:', result.error);
+                showToast('⚠️ Using direct download (monetization unavailable)', 'warning');
+            }
+        } catch (error) {
+            console.error('Error in ShrinkMe integration:', error);
+            showToast('⚠️ Using direct download (monetization error)', 'warning');
+        }
+    }
+    
+    // Fallback to direct download
+    directDownload(scriptUrl, scriptTitle);
+}
+
+// Direct download function (fallback)
+function directDownload(scriptUrl, scriptTitle) {
     // Create a blob to force regular download bypassing Tampermonkey
     fetch(scriptUrl)
         .then(response => response.text())
@@ -563,33 +604,79 @@ function downloadScript(scriptUrl, scriptTitle) {
             link.click();
             document.body.removeChild(link);
             window.URL.revokeObjectURL(url);
+            
+            // Show installation instructions
+            setTimeout(() => {
+                showInstallationInstructions(scriptTitle);
+            }, 500);
+        })
+        .catch(error => {
+            console.error('Download error:', error);
+            showToast('❌ Download failed. Please try again.', 'error');
         });
+}
+
+// Show installation instructions
+function showInstallationInstructions(scriptTitle) {
+    alert(`✅ ${scriptTitle} Downloaded!\n\n` +
+          `📋 Manual Installation Steps:\n` +
+          `1. Find the downloaded file in your Downloads folder\n` +
+          `2. Open it with any text editor (Notepad, etc.)\n` +
+          `3. Copy all the content (Ctrl+A, then Ctrl+C)\n` +
+          `4. Click the Tampermonkey icon in your browser\n` +
+          `5. Select "Create a new script"\n` +
+          `6. Delete everything and paste the copied content\n` +
+          `7. Press Ctrl+S to save\n\n` +
+          `🎮 The script is now ready to use on Pockie Ninja!`);
+}
+
+// Toast notification system
+function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#4CAF50' : type === 'warning' ? '#FF9800' : type === 'error' ? '#F44336' : '#2196F3'};
+        color: white;
+        padding: 16px 24px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 10000;
+        max-width: 400px;
+        font-size: 14px;
+        line-height: 1.4;
+        animation: slideInRight 0.3s ease-out;
+    `;
     
-    // Show installation instructions
-    setTimeout(() => {
-        alert(`✅ ${scriptTitle} Downloaded!\n\n` +
-              `📁 File saved with .txt extension to avoid browser issues\n\n` +
-              `📋 Manual Installation Steps:\n` +
-              `1. Find the downloaded file in your Downloads folder\n` +
-              `2. Open it with any text editor (Notepad, etc.)\n` +
-              `3. Copy all the content (Ctrl+A, then Ctrl+C)\n` +
-              `4. Click the Tampermonkey icon in your browser\n` +
-              `5. Select "Create a new script"\n` +
-              `6. Delete everything and paste the copied content\n` +
-              `7. Press Ctrl+S to save\n\n` +
-              `🎮 The script is now ready to use on Pockie Ninja!`);
-    }, 500);
+    toast.textContent = message;
+    document.body.appendChild(toast);
     
-    // Show simple download confirmation with manual installation steps
+    // Auto remove after 5 seconds
     setTimeout(() => {
-        alert(`✅ ${scriptTitle} Downloaded!\n\n` +
-              `� Manual Installation Steps:\n` +
-              `1. Open the downloaded .user.js file with any text editor\n` +
-              `2. Copy all the content (Ctrl+A, then Ctrl+C)\n` +
-              `3. Click the Tampermonkey icon in your browser\n` +
-              `4. Select "Create a new script"\n` +
-              `5. Delete everything and paste the copied content\n` +
-              `6. Press Ctrl+S to save\n\n` +
-              `🎮 That's it! The script is now ready to use on Pockie Ninja!`);
-    }, 500);
+        if (toast.parentNode) {
+            toast.style.animation = 'slideOutRight 0.3s ease-in';
+            setTimeout(() => toast.remove(), 300);
+        }
+    }, 5000);
+    
+    return toast;
+}
+
+// Add CSS for toast animations
+if (!document.getElementById('toast-styles')) {
+    const style = document.createElement('style');
+    style.id = 'toast-styles';
+    style.textContent = `
+        @keyframes slideInRight {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(400px); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
 }

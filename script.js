@@ -164,7 +164,19 @@ function generateVideoContent(script) {
         `;
     }
     
-    // No video available
+    // Check for thumbnail instead of video
+    if (script.thumbnailUrl) {
+        return `
+            <div class="thumbnail-container">
+                <img 
+                    src="${script.thumbnailUrl}" 
+                    alt="${script.title} Preview"
+                    style="width: 100%; height: 315px; object-fit: cover; border-radius: 8px; background: #f0f0f0;">
+            </div>
+        `;
+    }
+    
+    // No video or thumbnail available
     return `
         <div class="video-placeholder">
             <i class="fas fa-play"></i>

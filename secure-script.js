@@ -207,6 +207,7 @@ const scriptsData = [
         ],
         downloads: 1850,
         rating: 4.7,
+        thumbnailUrl: "images/thumbnails/auto-synthesize-soul-thumbnail.svg",
         downloadUrl: "scripts/auto-synthesize-soul-v3.0.user.js",
         githubUrl: "https://github.com/newnotepadsandwich/pn2025automation",
         lastUpdated: "2025-01-26",

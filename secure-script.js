@@ -149,6 +149,7 @@ const scriptsData = [
         ],
         downloads: 2840,
         rating: 4.7,
+        videoUrl: "https://www.youtube.com/embed/uX_yzMpKQIo",
         downloadUrl: "scripts/auto-open-items-v1.8.user.js",
         githubUrl: "https://github.com/newnotepadsandwich/info.hack",
         lastUpdated: "2025-01-26",

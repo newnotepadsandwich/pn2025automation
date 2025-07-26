@@ -451,21 +451,25 @@
             });
         }
         
-        // ShrinkMe.io test function
-        window.testShrinkMe = function() {
-            console.log('=== TESTING SHRINKME.IO QUICK LINK ===');
+        // ShrinkMe.io API test function
+        window.testShrinkMe = async function() {
+            console.log('=== TESTING SHRINKME.IO API ===');
             if (window.shrinkMeIntegration) {
-                const testUrl = 'https://example.com/test-script.user.js';
-                const result = window.shrinkMeIntegration.monetizeUrl(testUrl);
-                console.log('ShrinkMe Test Result:', result);
-                
-                if (result.success) {
-                    alert('✅ ShrinkMe.io Quick Link is working!\n\nMonetized URL: ' + result.shortUrl + '\n\nOriginal URL: ' + result.originalUrl);
-                } else {
-                    alert('❌ ShrinkMe.io Quick Link failed:\n' + result.error);
+                try {
+                    // Test with a real API call
+                    const result = await window.shrinkMeIntegration.testAPI();
+                    console.log('ShrinkMe.io API Test Result:', result);
+                    
+                    if (result.success) {
+                        alert('✅ ShrinkMe.io API is working!\n\nService: ' + result.service + '\nShort URL: ' + result.shortUrl + '\n\nOriginal URL: ' + result.originalUrl + '\n\n🎉 You can now earn money from every script download!');
+                    } else {
+                        alert('❌ ShrinkMe.io API failed:\n\nError: ' + result.error + '\n\nFallback: Using original URLs');
+                    }
+                } catch (error) {
+                    alert('❌ ShrinkMe.io API test error:\n' + error.message);
                 }
             } else {
-                alert('❌ ShrinkMe integration not loaded');
+                alert('❌ ShrinkMe.io integration not loaded');
             }
         };
         

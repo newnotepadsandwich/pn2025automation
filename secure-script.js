@@ -133,9 +133,9 @@ const scriptsData = [
     },
     {
         id: 4,
-        title: "Auto Open Items 1.8 (Speed Slider)",
+        title: "Auto Open Items 1.8.1 (Speed Slider)",
         game: "Pockie Ninja",
-        version: "v1.8",
+        version: "v1.8.1",
         description: "📦 **ULTIMATE ITEM AUTOMATION** - Professional item opening automation with configurable speed controls and smart generic item detection. Features predefined item support for scrolls, stone bags, seal breakers, and a revolutionary 'click-any-item' system that learns and automates any inventory item!",
         features: [
             "🚀 6-Speed Control System - From Very Slow (2s) to Ultra Fast (0.2s) processing",

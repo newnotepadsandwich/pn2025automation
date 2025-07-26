@@ -178,6 +178,7 @@ const scriptsData = [
         ],
         downloads: 3650,
         rating: 4.8,
+        videoUrl: "https://youtu.be/X7CwtKFctAI?si=rnoZTFmXR994q7fU",
         downloadUrl: "scripts/auto-refine-enhance-v4.0.user.js",
         githubUrl: "https://github.com/newnotepadsandwich/info.hack",
         lastUpdated: "2025-01-26",

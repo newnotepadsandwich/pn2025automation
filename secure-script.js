@@ -188,6 +188,39 @@ const scriptsData = [
         permissions: ["none"],
         matches: ["https://pockieninja.online/"],
         tags: ["⚔️ EQUIPMENT", "🔥 SMART STATS", "🎯 MULTI-MODE", "🧠 INTELLIGENT"]
+    },
+    {
+        id: 6,
+        title: "Auto Synthesize Soul v3.0",
+        game: "Pockie Ninja",
+        version: "v3.0",
+        description: "🔮 **BLOODSOUL AUTOMATION MASTERY** - Professional soul synthesis automation with dual-mode controls. Original script by Salty, enhanced for the Pockie Ninja Hub community with improved interface and reliability!",
+        features: [
+            "🎯 Dual-Mode System - Exact Match & Level Match automation modes",
+            "🔄 Smart Loop Logic - Continuous synthesis with intelligent button detection",
+            "🎛️ Toggle Interface - Independent start/stop controls for each mode",
+            "⚡ Quick Response - Optimized timing for seamless automation",
+            "🖥️ Compact UI - Non-intrusive overlay that doesn't block gameplay",
+            "🎨 Visual Feedback - Color-coded buttons and real-time status updates",
+            "🔒 Safe Operation - Minimal permissions with DOM-only interactions",
+            "👤 Credit Attribution - Proper recognition for original author Salty"
+        ],
+        downloads: 1850,
+        rating: 4.7,
+        downloadUrl: "scripts/auto-synthesize-soul-v3.0.user.js",
+        githubUrl: "https://github.com/newnotepadsandwich/pn2025automation",
+        lastUpdated: "2025-01-26",
+        verified: true,
+        scriptHash: "sha256-synthesize-soul-hash...",
+        safetyRating: 5,
+        permissions: ["none"],
+        matches: ["https://pockieninja.online"],
+        tags: ["🔮 SOUL SYNTHESIS", "🎯 DUAL-MODE", "👤 COMMUNITY", "⚡ EFFICIENT"],
+        originalAuthor: "Salty",
+        originalDonations: {
+            paypal: "https://paypal.me/murbawisesa",
+            saweria: "https://saweria.co/boyaghnia"
+        }
     }
 ];
 

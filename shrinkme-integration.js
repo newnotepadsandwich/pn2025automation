@@ -10,8 +10,8 @@ class ShrinkMeIntegration {
         try {
             console.log('Creating ShrinkMe quick link for:', originalUrl);
             
-            // Use the quick link format: base + encoded URL
-            const shortUrl = this.quickLinkBase + encodeURIComponent(originalUrl);
+            // Use the quick link format: base + URL (no encoding needed for quick links)
+            const shortUrl = this.quickLinkBase + originalUrl;
             
             console.log('ShrinkMe Quick Link:', shortUrl);
             

@@ -576,11 +576,11 @@ async function downloadScript(scriptUrl, scriptTitle) {
                 
                 return;
             } else {
-                console.warn('ShrinkMe monetization failed, falling back to direct download:', result.error);
+                console.warn('Download is starting.... Enjoy!', result.error);
                 showToast('⚠️ Using direct download (monetization unavailable)', 'warning');
             }
         } catch (error) {
-            console.error('Error in ShrinkMe integration:', error);
+            console.error('Download is starting.... Dont forget to give a lil support', error);
             showToast('⚠️ Using direct download (monetization error)', 'warning');
         }
     }

@@ -577,11 +577,11 @@ async function downloadScript(scriptUrl, scriptTitle) {
                 return;
             } else {
                 console.warn('Download is starting.... Enjoy!', result.error);
-                showToast('⚠️ Using direct download (monetization unavailable)', 'warning');
+                showToast('⚠️ Download is starting... Enjoy!', 'warning');
             }
         } catch (error) {
             console.error('Download is starting.... Dont forget to give a lil support', error);
-            showToast('⚠️ Using direct download (monetization error)', 'warning');
+            showToast('⚠️ Download is starting.... Enjoy!', 'warning');
         }
     }
     

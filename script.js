@@ -397,7 +397,7 @@ function trackDonation(platform) {
     // Example: gtag('event', 'donation_click', { 'platform': platform });
 }
 
-// Add CSS for modal content
+// Add CSS for modal content (script and EXE modals)
 const modalStyles = `
 <style>
 .script-modal-header {
@@ -419,6 +419,19 @@ const modalStyles = `
 
 .script-modal-content {
     padding: 2rem;
+    max-height: 70vh;
+    overflow-y: auto;
+    border-radius: 16px;
+    background: transparent;
+}
+
+/* EXE modal scrollable style (shared for consistency) */
+.exe-modal-content {
+    padding: 2rem;
+    max-height: 70vh;
+    overflow-y: auto;
+    border-radius: 16px;
+    background: transparent;
 }
 
 .video-container {
@@ -501,12 +514,10 @@ const modalStyles = `
         flex-direction: column;
         gap: 1rem;
     }
-    
     .script-actions {
         flex-direction: column;
     }
-    
-    .modal-content {
+    .modal-content, .exe-modal-content {
         margin: 2% auto;
         width: 95%;
         max-height: 90vh;

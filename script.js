@@ -627,6 +627,23 @@ const modalStyles = `
     }
 }
 </style>
+/* EXE info card scrollable/compact style */
+.exe-info-card {
+    background: #23273a;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    padding: 1.1rem 1.2rem 1.2rem 1.2rem;
+    color: #fff;
+    text-align: left;
+    margin: 1.1rem auto;
+    max-width: 520px;
+    width: 100%;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: auto;
+    font-size: 1.05rem;
+    max-height: 80vh;
+}
 `;
 
 // Add the styles to the document head

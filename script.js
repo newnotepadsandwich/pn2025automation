@@ -415,15 +415,57 @@ const modalStyles = `
     background: rgba(30,34,44,0.95);
     border-radius: 18px;
     box-shadow: 0 4px 24px rgba(0,0,0,0.18);
-    padding: 2rem 2.5rem;
+    padding: 1.1rem 1.2rem 1.2rem 1.2rem;
     color: #fff;
     text-align: left;
-    margin: 1.5rem auto;
+    margin: 1.1rem auto;
     max-width: 420px;
     width: 100%;
     transition: box-shadow 0.2s, transform 0.2s;
     position: relative;
-    overflow: hidden;
+    overflow: auto;
+    font-size: 0.98rem;
+    max-height: 80vh;
+}
+
+.script-card .script-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+.script-card .script-title {
+    font-size: 1.13rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+.script-card .script-version {
+    font-size: 0.98rem;
+    color: #7fdfff;
+    font-weight: 500;
+}
+.script-card .script-game {
+    font-size: 0.97rem;
+    color: #b8eaff;
+    margin-bottom: 0.3rem;
+}
+.script-card .script-description {
+    font-size: 0.97rem;
+    color: #e0e0e0;
+    margin-bottom: 0.5rem;
+}
+.script-card .script-features ul {
+    margin: 0 0 0.5rem 1.1rem;
+    padding: 0;
+    font-size: 0.96rem;
+}
+.script-card .script-features li {
+    margin-bottom: 0.2rem;
+}
+.script-card .script-actions {
+    margin-top: 0.7rem;
+    display: flex;
+    gap: 0.7rem;
 }
 /* EXE modal scrollable style (shared for consistency) */
 .exe-modal-content {

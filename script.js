@@ -411,20 +411,20 @@ const modalStyles = `
     font-size: 2rem;
 }
 
-.script-meta {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
+.script-card {
+    background: rgba(30,34,44,0.95);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    padding: 2rem 2.5rem;
+    color: #fff;
+    text-align: left;
+    margin: 1.5rem auto;
+    max-width: 420px;
+    width: 100%;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
 }
-
-.script-modal-content {
-    padding: 2rem;
-    max-height: 70vh;
-    overflow-y: auto;
-    border-radius: 16px;
-    background: transparent;
-}
-
 /* EXE modal scrollable style (shared for consistency) */
 .exe-modal-content {
     padding: 2rem;

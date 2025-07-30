@@ -549,43 +549,7 @@ function showLoadingCards() {
 async function downloadScript(scriptUrl, scriptTitle) {
     // Track the download
     trackDownload(scriptTitle);
-    
-    // Check if ShrinkMe integration is available and URL isn't already monetized
-    if (window.shrinkMeIntegration && !scriptUrl.includes('shrinkme.io')) {
-        try {
-            // Show loading message
-            const loadingToast = showToast('🔗 Preparing monetized download link...', 'info');
-            
-            // Create monetized link using quick link format
-            const result = window.shrinkMeIntegration.monetizeUrl(scriptUrl);
-            
-            // Hide loading message
-            if (loadingToast) loadingToast.remove();
-            
-            if (result.success) {
-                // Show monetized link info
-                showToast('💰 Supporting the developer - redirecting to secure download...', 'success');
-                
-                // Open the monetized link
-                window.open(result.shortUrl, '_blank');
-                
-                // Show installation instructions after a delay
-                setTimeout(() => {
-                    showInstallationInstructions(scriptTitle);
-                }, 2000);
-                
-                return;
-            } else {
-                console.warn('Download is starting.... Enjoy!', result.error);
-                showToast('⚠️ Download is starting... Enjoy!', 'warning');
-            }
-        } catch (error) {
-            console.error('Download is starting.... Dont forget to give a lil support', error);
-            showToast('⚠️ Download is starting.... Enjoy!', 'warning');
-        }
-    }
-    
-    // Fallback to direct download
+    // Always use direct download
     directDownload(scriptUrl, scriptTitle);
 }
 

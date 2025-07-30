@@ -563,12 +563,15 @@ function directDownload(scriptUrl, scriptTitle) {
             const url = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = scriptUrl.split('/').pop().replace('.user.js', '.user.js.txt');
+            // Always save as .user.js (not .txt)
+            let filename = scriptUrl.split('/').pop();
+            // Remove any trailing (n) or .txt if present
+            filename = filename.replace(/( \(\d+\))?\.txt$/, '');
+            link.download = filename;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
             window.URL.revokeObjectURL(url);
-            
             // Show installation instructions
             setTimeout(() => {
                 showInstallationInstructions(scriptTitle);

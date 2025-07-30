@@ -428,11 +428,14 @@ const modalStyles = `
 /* EXE modal scrollable style (shared for consistency) */
 .exe-modal-content {
     padding: 2rem;
-    max-height: 70vh;
+    max-width: 700px;
+    width: 95vw;
+    margin: 2.5rem auto;
+    max-height: 90vh;
     overflow-y: auto;
-    border-radius: 16px;
-
+    border-radius: 18px;
     background: transparent;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
 }
 
 /* How to Use block for EXE modal */

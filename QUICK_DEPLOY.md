@@ -43,7 +43,7 @@ Your Pockie Ninja Scripts Hub is **READY TO DEPLOY!**
 
 🎯 **Featured Scripts:**
 - **Auto Battle - TB v5.0** (with demo video)
-- **Auto Battle V3.8** (with 2 demo videos + tabs)
+<!-- Removed: Auto Battle V3.8 (Smart Health Detection) -->
 
 🎬 **Demo Videos:**
 - TB v5.0: https://youtu.be/WD_0GSGB3-Q ✅

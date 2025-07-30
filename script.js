@@ -69,7 +69,7 @@ function initializeNavigation() {
 function loadScripts() {
     scriptsGrid.innerHTML = '';
     
-    scriptsData.forEach(script => {
+    scriptsData.filter(script => script.title !== 'Auto Battle V3.8 (Smart Health Detection)').forEach(script => {
         const scriptCard = createScriptCard(script);
         scriptsGrid.appendChild(scriptCard);
     });
@@ -431,7 +431,65 @@ const modalStyles = `
     max-height: 70vh;
     overflow-y: auto;
     border-radius: 16px;
+
     background: transparent;
+}
+
+/* How to Use block for EXE modal */
+.exe-howto-block {
+    background: rgba(0, 80, 120, 0.18);
+    border-radius: 10px;
+    padding: 1.2rem 1.5rem 1.2rem 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #b8eaff;
+    font-size: 1.08rem;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+}
+.exe-howto-block strong {
+    color: #4fdfff;
+    font-weight: 600;
+}
+.exe-howto-block .exe-howto-title {
+    color: #4fdfff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.7rem;
+    display: block;
+}
+.exe-howto-block .exe-howto-list {
+    margin: 0 0 0.5rem 0;
+    padding: 0;
+    list-style: none;
+}
+.exe-howto-block .exe-howto-list li {
+    margin-bottom: 0.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+.exe-howto-block .exe-howto-list li .step-num {
+    background: #1a6fa7;
+    color: #fff;
+    border-radius: 50%;
+    width: 1.5em;
+    height: 1.5em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 0.5em;
+    font-size: 1em;
+}
+.exe-howto-block .exe-note {
+    color: #ffb84d;
+    font-weight: 600;
+    margin-top: 0.7rem;
+    display: block;
+}
+.exe-howto-block .exe-note .not {
+    text-decoration: underline;
+    color: #fff;
+    font-weight: 700;
 }
 
 .video-container {
@@ -528,6 +586,21 @@ const modalStyles = `
 
 // Add the styles to the document head
 document.head.insertAdjacentHTML('beforeend', modalStyles);
+
+// Utility to inject the How to Use block into the EXE modal
+function getExeHowToBlock() {
+    return `
+    <div class="exe-howto-block">
+        <span class="exe-howto-title">How to Use:</span>
+        <ul class="exe-howto-list">
+            <li><span class="step-num">1</span> Download the EXE file above</li>
+            <li><span class="step-num">2</span> Double-click to open</li>
+            <li><span class="step-num">3</span> Log in and play Pockie Ninja!</li>
+        </ul>
+        <span class="exe-note"><strong>Note:</strong> This mini app does <span class="not">not</span> provide automation or scripts. It is simply a standalone client for playing Pockie Ninja.</span>
+    </div>
+    `;
+}
 
 // Loading animation for script cards
 function showLoadingCards() {
@@ -696,7 +769,7 @@ function openReviewModal() {
                             <label for="reviewScript">Script Used *</label>
                             <select id="reviewScript" required>
                                 <option value="">Select a script</option>
-                                <option value="Auto Battle V3.8">Auto Battle V3.8</option>
+                                <!-- Removed: Auto Battle V3.8 (Smart Health Detection) -->
                                 <option value="Auto Clicker Pro">Auto Clicker Pro</option>
                                 <option value="TB Auto Battle V5">TB Auto Battle V5</option>
                                 <option value="Pockie Auto Battle">Pockie Auto Battle</option>

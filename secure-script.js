@@ -157,7 +157,7 @@ const scriptsData = [
         scriptHash: "sha256-item-opener-hash...",
         safetyRating: 5,
         permissions: ["none"],
-        matches: ["https://pockieninja.online"],
+        // ...existing code...
         tags: ["📦 ITEM AUTOMATION", "🚀 SPEED CONTROL", "🎯 SMART DETECTION", "💫 PROFESSIONAL"]
     },
     {

@@ -74,7 +74,7 @@
             <button id="smartscreenHelpBtn" style="background: #ff9800; color: #fff; border: none; border-radius: 8px; padding: 0.7rem 1.5rem; font-size: 1.08rem; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.12); transition: background 0.2s;">⚠️ SmartScreen Help</button>
         </div>
         <div id="smartscreenModal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(20,20,30,0.85); align-items:center; justify-content:center;">
-            <div style="background: #23263a; border-radius: 14px; max-width: 420px; width: 95vw; margin:auto; padding: 2rem 1.5rem 1.5rem 1.5rem; box-shadow: 0 8px 32px rgba(0,0,0,0.25); position:relative; text-align:center;">
+            <div style="background: #23263a; border-radius: 14px; max-width: 420px; width: 95vw; margin:auto; padding: 2rem 1.5rem 1.5rem 1.5rem; box-shadow: 0 8px 32px rgba(0,0,0,0.25); position:relative; text-align:center; overflow-y:auto; max-height:90vh;">
                 <button id="closeSmartscreenModal" style="position:absolute; top:12px; right:16px; background:none; border:none; color:#fff; font-size:1.7rem; cursor:pointer;">&times;</button>
                 <h3 style="color:#ff9800; margin-bottom: 0.7rem; font-size: 1.15rem;">Windows Defender SmartScreen Notice</h3>
                 <p style="color:#fff; font-size: 1.05rem; margin-bottom: 1.1rem;">If you see a red warning like this, don't worry!<br><b>This is a false positive.</b> The app is safe if you trust this site.</p>
@@ -85,6 +85,11 @@
                     1. Click <b>More info</b>.<br>
                     2. Click <b>Run anyway</b>.<br>
                     <span style="color:#ff9800;">Rest assured, there is <b>no virus or malware</b> in this file.</span>
+                </div>
+                <div style="margin-top:1.5rem; font-size: 0.98rem; color: #ccc; text-align:left; background:rgba(0,0,0,0.12); border-radius:8px; padding:1rem;">
+                    <i class="fas fa-info-circle"></i> <b>Community Notice:</b> This is a community-made tool. If you love it, <a href="#reviews" style="color:#00d4ff; text-decoration:underline;">leave a review</a> or <a href="#donate" style="color:#00d4ff; text-decoration:underline;">support us</a>!<br>
+                    <span style="color:#ff9800;">Having issues? Try running as administrator or check your antivirus settings.</span><br>
+                    <span style="color:#ff9800;"><b>Disclaimer:</b> Some antivirus programs or Windows Defender may flag this installer as a potential threat. This is a false positive—there is no malware or virus in this file. If you trust this site, you can safely run the installer anyway. If you need help, feel free to contact us for support.</span>
                 </div>
             </div>
         </div>
@@ -111,11 +116,7 @@
         <div style="font-size: 1rem; color: #ff9800; margin-bottom: 0.5rem;">
             <b>Note:</b> <span style="color:#fff;">This mini app does <u>not</u> provide automation or scripts. It is simply a standalone client for playing Pockie Ninja.</span>
         </div>
-        <div style="font-size: 0.98rem; color: #ccc;">
-            <i class="fas fa-info-circle"></i> <b>Community Notice:</b> This is a community-made tool. If you love it, <a href="#reviews" style="color:#00d4ff; text-decoration:underline;">leave a review</a> or <a href="#donate" style="color:#00d4ff; text-decoration:underline;">support us</a>!<br>
-            <span style="color:#ff9800;">Having issues? Try running as administrator or check your antivirus settings.</span><br>
-            <span style="color:#ff9800;"><b>Disclaimer:</b> Some antivirus programs or Windows Defender may flag this installer as a potential threat. This is a false positive—there is no malware or virus in this file. If you trust this site, you can safely run the installer anyway. If you need help, feel free to contact us for support.</span>
-        </div>
+        <!-- Community Notice and Disclaimer moved into modal above -->
     </div>
             </div>
             <div class="hero-visual">

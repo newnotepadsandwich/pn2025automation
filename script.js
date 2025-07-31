@@ -627,22 +627,20 @@ const modalStyles = `
     }
 }
 </style>
-/* EXE info card scrollable/compact style */
- .exe-info-card {
-    background: rgba(30,34,44,0.95);
+/* EXE modal content (original style, scrollable) */
+.exe-modal-content {
+    padding: 2rem;
+    max-width: 700px;
+    width: 95vw;
+    margin: 2.5rem auto;
+    max-height: 90vh;
+    overflow-y: auto;
     border-radius: 18px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
-    padding: 1.1rem 1.2rem 1.2rem 1.2rem;
+    background: rgba(30,34,44,0.97);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
     color: #fff;
+    font-size: 1.08rem;
     text-align: left;
-    margin: 1.1rem auto;
-    max-width: 520px;
-    width: 100%;
-    transition: box-shadow 0.2s, transform 0.2s;
-    position: relative;
-    overflow: auto;
-    font-size: 1.05rem;
-    max-height: 80vh;
 }
 `;
 

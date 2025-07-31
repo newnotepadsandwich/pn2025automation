@@ -628,8 +628,8 @@ const modalStyles = `
 }
 </style>
 /* EXE info card scrollable/compact style */
-.exe-info-card {
-    background: #23273a;
+ .exe-info-card {
+    background: rgba(30,34,44,0.95);
     border-radius: 18px;
     box-shadow: 0 4px 24px rgba(0,0,0,0.18);
     padding: 1.1rem 1.2rem 1.2rem 1.2rem;
